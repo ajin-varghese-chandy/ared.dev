@@ -1,219 +1,242 @@
-import { cacheLife } from "next/cache";
-import { ReviewGrid } from "./components/ReviewGrid";
-import { ReviewScroll } from "./components/ReviewScroll";
-import { HireMeButton } from "./components/HireMeButton";
-import { ContactForm } from "./components/ContactForm";
-import { MarkdownContent } from "./components/MarkdownContent";
-import { getAllContent } from "@/lib/data";
+import { projects, site, stack } from "@/lib/content";
 
-export default async function Home() {
-  "use cache";
-  cacheLife("max");
+const navLinks = [
+  { label: "work", href: "#work" },
+  { label: "stack", href: "#stack" },
+  { label: "contact", href: "#contact" },
+];
 
-  const content = await getAllContent();
-  const { sections } = content.layout;
+/** Section header, styled like a shell command. */
+function Cmd({ cmd, meta }: { cmd: string; meta?: string }) {
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-line-strong pb-3">
+      <p className="text-sm font-medium text-green">
+        <span className="text-ink-mute select-none">$ </span>
+        {cmd}
+      </p>
+      {meta ? (
+        <span className="text-[11px] uppercase tracking-[0.2em] text-ink-mute">
+          {meta}
+        </span>
+      ) : null}
+    </div>
+  );
+}
 
-  const sectionComponents: Record<string, () => React.ReactNode> = {
-    hero: () => (
-      <section className="flex min-h-[100svh] flex-col items-center justify-center px-5 text-center lg:flex-row lg:items-center lg:justify-center lg:gap-16 lg:px-16 lg:text-left xl:px-24">
-        <div className="flex flex-col items-center text-center lg:items-start lg:flex-1 lg:text-left">
-          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">
-            {content.hero.subtitle}
-          </p>
-          <h1 className="animate-slide-left hero-name text-[clamp(2.4rem,10vw,5.5rem)] uppercase tracking-[0.08em] leading-[0.95] text-[var(--color-text)]">
-            {(content.hero.name || "Ajin Varghese Chandy").split(" ").map((part) => (
-              <span key={part} className="hero-name-line">{part}</span>
-            ))}
-          </h1>
-          <p className="mt-5 max-w-sm px-2 text-sm text-[var(--color-text-secondary)] leading-relaxed lg:px-0">
-            {content.hero.description}
-          </p>
-          <div className="mt-3 flex flex-wrap justify-center gap-2 lg:justify-start">
-            {content.hero.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-text-secondary)] whitespace-nowrap"
+export default function Home() {
+  return (
+    <>
+      {/* ------------------------------------------------------------- Header */}
+      <header className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur">
+        <div className="container-page flex h-14 items-center justify-between gap-4">
+          <a
+            href="#top"
+            className="text-[13px] text-ink-soft transition-colors hover:text-green"
+          >
+            <span className="text-ink-mute">~</span> {site.name.split(" ")[0].toLowerCase()}
+            <span className="caret ml-0.5 h-[0.9em]" aria-hidden="true" />
+          </a>
+
+          <nav className="flex items-center gap-5 text-[13px] sm:gap-7">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-ink-soft transition-colors hover:text-green"
               >
-                {tag}
-              </span>
+                ./{link.label}
+              </a>
+            ))}
+            <a
+              href={`mailto:${site.email}`}
+              className="border border-line-strong px-3 py-1.5 text-green transition-colors hover:border-green hover:bg-green hover:text-bg"
+            >
+              $ mail
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main className="relative z-10 flex-1">
+        {/* --------------------------------------------------------------- Hero */}
+        <section
+          id="top"
+          className="container-page flex min-h-[calc(100svh-3.5rem)] flex-col justify-center gap-7 py-14 sm:gap-9"
+        >
+          <p className="text-sm text-green">
+            <span className="text-ink-mute select-none">$ </span>whoami
+          </p>
+
+          <div>
+            <h1 className="text-[clamp(1.75rem,6vw,4rem)] font-bold leading-[1.05] tracking-tight text-ink">
+              {site.name}
+            </h1>
+            <p className="mt-4 flex flex-wrap items-center gap-2 text-[clamp(0.95rem,2.4vw,1.25rem)] text-green">
+              <span className="text-ink-mute select-none">&gt; </span>
+              {site.role}
+              <span className="caret" aria-hidden="true" />
+            </p>
+          </div>
+
+          <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft">
+            {site.intro}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-[13px]">
+            <a
+              href={`mailto:${site.email}`}
+              className="bg-green px-4 py-2.5 font-medium text-bg transition-opacity hover:opacity-80"
+            >
+              {site.email}
+            </a>
+            {site.socials.map((social) => (
+              <a
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-green hover:decoration-green"
+              >
+                {social.label}
+              </a>
             ))}
           </div>
-          {content.hero.hireButton?.visible !== false && (
-            <HireMeButton
-              email={content.email.to}
-              label={content.hero.hireButton?.label || "Hire Me"}
-            />
-          )}
-          <div className="mt-4 flex w-full max-w-xs flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4 lg:justify-start">
-            <a href={content.social.github} target="_blank" rel="noreferrer"
-              className="rounded border border-[var(--color-border)] py-3 text-center text-xs uppercase tracking-[0.18em] text-[var(--color-text-secondary)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-text)] sm:px-5 sm:py-2">
-              GitHub
-            </a>
-            <a href={content.social.linkedin} target="_blank" rel="noreferrer"
-              className="rounded border border-[var(--color-border)] py-3 text-center text-xs uppercase tracking-[0.18em] text-[var(--color-text-secondary)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-text)] sm:px-5 sm:py-2">
-              LinkedIn
-            </a>
-            <a href={content.social.x} target="_blank" rel="noreferrer"
-              className="rounded border border-[var(--color-border)] py-3 text-center text-xs uppercase tracking-[0.18em] text-[var(--color-text-secondary)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-text)] sm:px-5 sm:py-2">
-              X (Twitter)
-            </a>
-          </div>
-          <div className="mt-12 flex flex-col items-center gap-1 text-[var(--color-border)] lg:hidden">
-            <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-            <svg width="16" height="24" viewBox="0 0 16 24" fill="none" aria-hidden="true">
-              <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="8" cy="7" r="2" fill="currentColor" className="animate-bounce" />
-            </svg>
-          </div>
-        </div>
-        {content.reviews.length > 0 && (
-          <div className="hidden lg:block lg:w-80 xl:w-96 lg:shrink-0">
-            <ReviewScroll reviews={content.reviews} />
-          </div>
-        )}
-      </section>
-    ),
-    reviews: () => (
-      <section className="px-5 py-16 bg-[var(--color-surface)] lg:hidden sm:px-6 sm:py-24 overflow-hidden">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 sm:mb-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">02</span>
-            <h2 className="text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">Reviews</h2>
-            <div className="h-px flex-1 bg-[var(--color-border)]" />
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-            <ReviewGrid reviews={content.reviews} columns={2} />
-          </div>
-        </div>
-      </section>
-    ),
-    skills: () => (
-      <section className="px-5 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 sm:mb-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">03</span>
-            <h2 className="text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">Skills</h2>
-            <div className="h-px flex-1 bg-[var(--color-border)]" />
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-            {content.skills.map(({ category, items }) => (
-              <div key={category} className="min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 sm:p-5">
-                <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:text-xs">{category}</p>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span key={item} className="rounded-full bg-[var(--color-surface-alt)] px-3 py-1 text-xs text-[var(--color-text-secondary)] sm:text-sm">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    ),
-    experience: () => (
-      <section className="px-5 pb-16 sm:px-6 sm:pb-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 sm:mb-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">04</span>
-            <h2 className="text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">Technical Experience</h2>
-            <div className="h-px flex-1 bg-[var(--color-border)]" />
-          </div>
-          <div className="flex flex-col gap-4 sm:gap-6">
-            <div className="min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 sm:p-6">
-              <div className="mb-3 flex flex-wrap items-start gap-2 sm:mb-4 sm:items-center sm:gap-3">
-                <h3 className="text-sm font-semibold leading-snug text-[var(--color-text)] sm:text-base">{content.experience.role}</h3>
-                <span className="rounded-full border border-[var(--color-border)] px-3 py-0.5 text-[10px] text-[var(--color-text-muted)] sm:text-xs">
-                  {content.experience.period}
-                </span>
-              </div>
-              <p className="mb-3 text-xs text-[var(--color-text-secondary)] leading-relaxed sm:text-sm">{content.experience.description}</p>
-              <ul className="flex flex-col gap-2">
-                {content.experience.items.map((item) => (
-                  <li key={item.label} className="flex gap-3 text-xs text-[var(--color-text-secondary)] leading-relaxed sm:text-sm">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-text-muted)]" />
-                    <span>{item.url ? (<a href={item.url} target="_blank" rel="noreferrer"><strong className="text-[var(--color-text)] underline underline-offset-2 hover:text-[var(--color-text)]">{item.label}</strong></a>) : (<strong className="text-[var(--color-text)]">{item.label}</strong>)} {item.github && <a href={item.github} target="_blank" rel="noreferrer" className="text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors" title="GitHub">&#8599;</a>} — {item.detail}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    ),
-    projects: () => (
-      <section className="px-5 pb-16 sm:px-6 sm:pb-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 sm:mb-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">05</span>
-            <h2 className="text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">Projects</h2>
-            <div className="h-px flex-1 bg-[var(--color-border)]" />
-          </div>
-          <div className="flex flex-col gap-4 sm:gap-6">
-            {content.projects.map((project) => (
-              <div key={project.title} className="min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 sm:p-6">
-                <div className="mb-3 flex flex-wrap items-start gap-2 sm:mb-4 sm:items-center sm:gap-3">
-                  <h3 className="text-sm font-semibold leading-snug text-[var(--color-text)] sm:text-base">{project.title}</h3>
-                  <span className="rounded-full border border-[var(--color-border)] px-3 py-0.5 text-[10px] text-[var(--color-text-muted)] sm:text-xs">
-                    {project.period}
+        </section>
+
+        {/* --------------------------------------------------------------- Work */}
+        <section
+          id="work"
+          className="container-page border-t border-line py-14 sm:py-20"
+        >
+          <Cmd cmd="ls ./projects" meta={`${projects.length} entries`} />
+
+          <ul className="mt-2">
+            {projects.map((project, i) => (
+              <li key={project.title}>
+                <a
+                  href={project.href ?? project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group grid grid-cols-12 gap-x-5 gap-y-2 border-b border-line py-6 transition-colors hover:border-line-strong"
+                >
+                  <span className="col-span-2 font-medium text-ink-mute transition-colors group-hover:text-green sm:col-span-1">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                </div>
-                <ul className="flex flex-col gap-2">
-                  {project.items.map((item) => (
-                    <li key={item.label} className="flex gap-3 text-xs text-[var(--color-text-secondary)] leading-relaxed sm:text-sm">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-text-muted)]" />
-                      <span><strong className="text-[var(--color-text)]">{item.label}</strong> — {item.detail}</span>
+
+                  <div className="col-span-10 sm:col-span-7">
+                    <h3 className="text-lg leading-snug text-ink transition-colors group-hover:text-green sm:text-xl">
+                      {project.title}
+                      <span className="ml-2 font-normal text-ink-mute">
+                        [{project.year}]
+                      </span>
+                    </h3>
+                    <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-ink-mute">
+                      {project.kind}
+                    </p>
+                    <p className="mt-3 max-w-prose text-[14px] leading-relaxed text-ink-soft">
+                      {project.summary}
+                    </p>
+                  </div>
+
+                  <div className="col-span-12 flex flex-wrap gap-1.5 self-start sm:col-span-4 sm:justify-end">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="border border-line px-2 py-0.5 text-[11px] text-ink-mute transition-colors group-hover:border-line-strong group-hover:text-ink-soft"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* -------------------------------------------------------------- Stack */}
+        <section
+          id="stack"
+          className="container-page border-t border-line py-14 sm:py-20"
+        >
+          <Cmd cmd="cat ./stack.txt" meta="4 groups" />
+
+          <div className="mt-8 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+            {stack.map((group) => (
+              <div key={group.category}>
+                <p className="border-b border-line pb-2 text-[11px] uppercase tracking-[0.2em] text-green">
+                  {group.category}
+                </p>
+                <ul className="mt-3 space-y-1.5 text-[14px] text-ink-soft">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex items-baseline gap-2.5">
+                      <span className="text-ink-mute select-none">+</span>
+                      {item}
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-    ),
-    contact: () => (
-      <section className="px-5 pb-16 sm:px-6 sm:pb-24">
-        <div className="mx-auto w-full max-w-3xl">
-          <div className="mb-8 flex items-center gap-4 sm:mb-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)] sm:text-xs">06</span>
-            <h2 className="text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">Contact</h2>
-            <div className="h-px flex-1 bg-[var(--color-border)]" />
-          </div>
-          <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-5 sm:p-6">
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-    ),
-    footer: () => (
-      <footer className="px-5 py-8 text-center bg-[var(--color-surface)] sm:py-10">
-        <p className="text-[10px] text-[var(--color-text-muted)] tracking-widest uppercase sm:text-xs">
-          {content.footer.text}
-        </p>
-      </footer>
-    ),
-  };
+        </section>
 
-  return (
-    <main className="relative overflow-x-hidden" style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}>
-      {sections
-        .filter((s) => s.visible)
-        .map((s) => (
-          <div key={s.key} className={s.key === "skills" || s.key === "experience" || s.key === "projects" || s.key === "contact" ? "bg-[var(--color-surface)]" : ""}>
-            {sectionComponents[s.key]
-              ? sectionComponents[s.key]?.()
-              : s.content && (
-                  <section className="px-5 py-16 sm:px-6 sm:py-24">
-                    <div className="mx-auto max-w-3xl">
-                      <h2 className="mb-8 text-lg font-semibold tracking-wide text-[var(--color-text)] sm:text-xl">{s.label}</h2>
-                      <MarkdownContent content={s.content} />
-                    </div>
-                  </section>
-                )}
+        {/* ------------------------------------------------------------ Contact */}
+        <section
+          id="contact"
+          className="container-page border-t border-line py-14 sm:py-20"
+        >
+          <Cmd cmd="echo $CONTACT" meta="channel open" />
+
+          <p className="mt-10 text-[clamp(1.5rem,5vw,3rem)] font-bold leading-tight tracking-tight text-ink">
+            Let&apos;s build something
+            <span className="block text-green">
+              that doesn&apos;t fall over.
+            </span>
+          </p>
+
+          <div className="mt-10 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-md text-[14px] leading-relaxed text-ink-soft">
+              Product, prototype, or something that keeps falling over in
+              production — send it over. I reply within a day.
+            </p>
+
+            <a
+              href={`mailto:${site.email}`}
+              className="shrink-0 border border-line-strong px-5 py-3 text-[14px] text-green transition-colors hover:border-green hover:bg-green hover:text-bg"
+            >
+              $ mail {site.email}
+            </a>
           </div>
-        ))}
-    </main>
+        </section>
+      </main>
+
+      {/* ------------------------------------------------------------- Footer */}
+      <footer className="relative z-10 border-t border-line">
+        <div className="container-page flex flex-col gap-4 py-7 text-[12px] sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-ink-mute">
+            © 2026 {site.name} — built with next.js
+          </p>
+          <div className="flex flex-wrap items-center gap-5">
+            {site.socials.map((social) => (
+              <a
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-ink-mute transition-colors hover:text-green"
+              >
+                {social.label}
+              </a>
+            ))}
+            <a
+              href={`mailto:${site.email}`}
+              className="text-ink-mute transition-colors hover:text-green"
+            >
+              email
+            </a>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
