@@ -25,12 +25,12 @@ export const site = {
   intro:
     "I design and ship fast, reliable web products — automation, real-time systems, and AI integrations.",
   socials: [
-    { label: "github", href: "https://github.com/aajinn" },
+    { label: "github", href: "https://github.com/ajin-varghese-chandy" },
     {
       label: "linkedin",
-      href: "https://www.linkedin.com/in/ajin-varghese-chandy-1654a4276",
+      href: "https://www.linkedin.com/in/ajin-varghese-chandy",
     },
-    { label: "x", href: "https://x.com/areddev" },
+    { label: "x", href: "https://x.com/ajiinvc" },
   ] satisfies Social[],
 };
 
