@@ -17,17 +17,17 @@ function TreeItem({
   onClick: () => void;
 }) {
   return (
-    <li className="relative">
+    <li className="relative shrink-0 md:shrink">
       {/* Vertical trunk line */}
       <div
-        className="absolute left-[7px] w-px bg-border-strong"
+        className="absolute left-[7px] hidden w-px bg-border-strong md:block"
         style={{
           top: isFirst ? "14px" : "0",
           bottom: isLast ? "calc(100% - 14px)" : "0",
         }}
       />
       {/* Horizontal connector */}
-      <div className="absolute left-[7px] top-[14px] h-px w-[10px] bg-border-strong" />
+      <div className="absolute left-[7px] top-[14px] hidden h-px w-[10px] bg-border-strong md:block" />
       <a
         href={item.href}
         onClick={(e) => {
@@ -36,7 +36,7 @@ function TreeItem({
           const el = document.querySelector(item.href);
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }}
-        className={`relative block py-[10px] pl-[26px] text-[15px] transition-colors duration-200 ${
+        className={`relative block whitespace-nowrap py-1 text-sm transition-colors duration-200 md:py-[10px] md:pl-[26px] md:text-[15px] ${
           isActive
             ? "text-text"
             : "text-text-muted hover:text-text-soft"
@@ -133,21 +133,28 @@ export function Sidebar({
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <aside className="flex w-full flex-col border-b border-border bg-surface md:w-[290px] md:shrink-0 md:border-b-0 md:border-r">
-      <div className="flex flex-1 flex-col p-6 md:p-8">
+    <aside className="sticky top-0 z-20 w-full border-b border-border bg-surface md:static md:flex md:w-[290px] md:shrink-0 md:flex-col md:border-b-0 md:border-r">
+      <div className="flex flex-col px-5 py-4 md:flex-1 md:p-8">
         {/* Logo */}
-        <div className="mb-10">
+        <div className="flex items-center justify-between md:mb-10 md:block">
           <a
             href="#top"
-            className="text-xl font-bold tracking-tight text-text"
+            className="text-lg font-bold tracking-tight text-text md:text-xl"
           >
             {logoName}
           </a>
+
+          {/* Social Links - compact row on mobile */}
+          <div className="flex gap-2 md:hidden">
+            {socials.map((social) => (
+              <SocialButton key={social.href} social={social} />
+            ))}
+          </div>
         </div>
 
         {/* Tree Navigation */}
-        <nav className="flex-1">
-          <ul className="space-y-0">
+        <nav className="mt-3 md:mt-0 md:flex-1">
+          <ul className="flex gap-5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible md:pb-0">
             {navItems.map((item, i) => (
               <TreeItem
                 key={item.href}
@@ -162,7 +169,7 @@ export function Sidebar({
         </nav>
 
         {/* Social Links */}
-        <div className="mt-auto pt-8">
+        <div className="mt-auto hidden pt-8 md:block">
           <div className="relative">
             <div className="absolute left-[7px] top-[11px] h-px w-[10px] bg-border-strong" />
             <p className="pl-[26px] text-[13px] text-text-muted">

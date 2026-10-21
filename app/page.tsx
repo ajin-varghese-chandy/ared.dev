@@ -163,14 +163,14 @@ function StackGroups() {
 
 function AiTools() {
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-3 xl:grid-cols-4">
       {aiToolsSection.items.map((item) => (
         <li
           key={item}
-          className="flex items-center gap-3 border border-border bg-surface px-4 py-3"
+          className="flex items-center gap-2.5 border border-border bg-surface px-3 py-3 sm:gap-3 sm:px-4"
         >
           <span className="h-1.5 w-1.5 shrink-0 bg-border-strong" />
-          <span className="text-[15px] text-text">{item}</span>
+          <span className="min-w-0 text-sm text-text sm:text-[15px]">{item}</span>
         </li>
       ))}
     </ul>
@@ -179,18 +179,18 @@ function AiTools() {
 
 export default function Home() {
   return (
-    <div className="relative h-dvh overflow-hidden">
+    <div className="relative min-h-dvh md:h-dvh md:overflow-hidden">
       <DigitBackground />
 
       {/* Main Container */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1360px] flex-col overflow-hidden rounded-none border-x border-border bg-bg sm:my-8 sm:h-[calc(100dvh-4rem)] sm:rounded-2xl sm:border">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[1360px] flex-col border-x border-border bg-bg sm:my-8 sm:min-h-[calc(100dvh-4rem)] sm:rounded-2xl sm:border md:h-[calc(100dvh-4rem)] md:min-h-0 md:overflow-hidden">
         <div className="flex min-h-0 flex-1 flex-col md:flex-row">
           <Sidebar navItems={navigation} socials={site.socials} logoName={site.shortName} />
 
           {/* Main Content */}
-          <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-bg [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <main className="min-h-0 flex-1 bg-bg md:overflow-y-auto md:overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Profile Section */}
-            <section id="profile" className="p-6 sm:p-10 md:p-12">
+            <section id="profile" className="scroll-mt-20 p-5 sm:p-10 md:scroll-mt-0 md:p-12">
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
                 {/* Left Column */}
                 <div>
@@ -220,7 +220,7 @@ export default function Home() {
             </section>
 
             {/* Projects Section */}
-            <section id="projects" className="border-t border-border p-6 sm:p-10 md:p-12">
+            <section id="projects" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
               <h2 className="text-lg font-bold text-text">Projects</h2>
               <div className="mt-6">
                 <Projects />
@@ -228,7 +228,7 @@ export default function Home() {
             </section>
 
             {/* Stack Section */}
-            <section id="stack" className="border-t border-border p-6 sm:p-10 md:p-12">
+            <section id="stack" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
               <h2 className="text-lg font-bold text-text">Stack</h2>
               <div className="mt-6">
                 <StackGroups />
@@ -236,7 +236,7 @@ export default function Home() {
             </section>
 
             {/* AI Tools Section */}
-            <section id="ai-tools" className="border-t border-border p-6 sm:p-10 md:p-12">
+            <section id="ai-tools" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
               <h2 className="text-lg font-bold text-text">{aiToolsSection.title}</h2>
               <div className="mt-6">
                 <AiTools />
@@ -244,12 +244,12 @@ export default function Home() {
             </section>
 
             {/* Contact Section */}
-            <section id="contact" className="border-t border-border p-6 sm:p-10 md:p-12">
+            <section id="contact" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
               <h2 className="text-lg font-bold text-text">Contact</h2>
               <div className="mt-6">
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-[15px] text-text-soft underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
+                  className="break-words text-[15px] text-text-soft underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
                 >
                   {site.email}
                 </a>
