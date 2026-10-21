@@ -6,6 +6,7 @@ import {
   featuredCard,
   projects,
   stack,
+  aiToolsSection,
 } from "@/lib/content";
 import { DigitBackground } from "./components/digit-background";
 import { Sidebar } from "./components/tree-nav";
@@ -160,13 +161,29 @@ function StackGroups() {
   );
 }
 
+function AiTools() {
+  return (
+    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {aiToolsSection.items.map((item) => (
+        <li
+          key={item}
+          className="flex items-center gap-3 border border-border bg-surface px-4 py-3"
+        >
+          <span className="h-1.5 w-1.5 shrink-0 bg-border-strong" />
+          <span className="text-[15px] text-text">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Home() {
   return (
     <div className="relative h-dvh overflow-hidden">
       <DigitBackground />
 
       {/* Main Container */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1200px] flex-col overflow-hidden rounded-none border-x border-border bg-bg sm:my-8 sm:h-[calc(100dvh-4rem)] sm:rounded-2xl sm:border">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1360px] flex-col overflow-hidden rounded-none border-x border-border bg-bg sm:my-8 sm:h-[calc(100dvh-4rem)] sm:rounded-2xl sm:border">
         <div className="flex min-h-0 flex-1 flex-col md:flex-row">
           <Sidebar navItems={navigation} socials={site.socials} logoName={site.shortName} />
 
@@ -215,6 +232,14 @@ export default function Home() {
               <h2 className="text-lg font-bold text-text">Stack</h2>
               <div className="mt-6">
                 <StackGroups />
+              </div>
+            </section>
+
+            {/* AI Tools Section */}
+            <section id="ai-tools" className="border-t border-border p-6 sm:p-10 md:p-12">
+              <h2 className="text-lg font-bold text-text">{aiToolsSection.title}</h2>
+              <div className="mt-6">
+                <AiTools />
               </div>
             </section>
 

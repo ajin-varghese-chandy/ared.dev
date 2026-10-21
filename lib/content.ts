@@ -24,6 +24,11 @@ export type NavItem = {
   href: string;
 };
 
+export type AiToolsSection = {
+  title: string;
+  items: string[];
+};
+
 export type Highlight = {
   text: string;
   link?: { text: string; href: string };
@@ -52,6 +57,7 @@ export const navigation: NavItem[] = [
   { label: "Profile", href: "#profile" },
   { label: "Projects", href: "#projects" },
   { label: "Stack", href: "#stack" },
+  { label: "AI Tools", href: "#ai-tools" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -102,3 +108,8 @@ export const stack: StackGroup[] = [
     items: ["Docker", "CI/CD", "Chrome Ext", "AI APIs"],
   },
 ];
+
+export const aiToolsSection: AiToolsSection = {
+  title: "AI Tools",
+  items: ["OpenCode", "Kimi", "Claude", "DeepSeek"],
+};
