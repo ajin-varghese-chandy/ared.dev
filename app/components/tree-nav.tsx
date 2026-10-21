@@ -125,10 +125,12 @@ export function Sidebar({
   navItems,
   socials,
   logoName,
+  socialsLabel,
 }: {
   navItems: NavItem[];
   socials: Social[];
   logoName: string;
+  socialsLabel: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -173,7 +175,7 @@ export function Sidebar({
           <div className="relative">
             <div className="absolute left-[7px] top-[11px] h-px w-[10px] bg-border-strong" />
             <p className="pl-[26px] text-[13px] text-text-muted">
-              Find me on:
+              {socialsLabel}
             </p>
           </div>
           <div className="mt-3 flex gap-3 pl-[26px]">

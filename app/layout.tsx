@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
-import { site } from "@/lib/content";
+import { site, labels } from "@/lib/content";
 import { LoadingScreen } from "./components/loading-screen";
 import "./globals.css";
 
@@ -11,7 +11,7 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
-const description = `${site.name} — ${site.role}. ${site.intro}`;
+const description = `${site.name} — ${site.role}. ${site.description}`;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -20,17 +20,17 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ared.dev"),
+  metadataBase: new URL(site.url),
   title: `${site.name} | ${site.role}`,
   description,
-  authors: [{ name: site.name, url: "https://ared.dev" }],
+  authors: [{ name: site.name, url: site.url }],
   openGraph: {
     title: `${site.name} | ${site.role}`,
     description,
     type: "website",
     locale: "en_US",
     siteName: site.name,
-    url: "https://ared.dev",
+    url: site.url,
   },
 };
 
@@ -40,7 +40,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.name,
-  url: "https://ared.dev",
+  url: site.url,
   jobTitle: site.role,
   email: `mailto:${site.email}`,
   sameAs: site.socials.map((s) => s.href),
@@ -58,7 +58,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LoadingScreen name={loadingName} />
+        <LoadingScreen name={loadingName} label={labels.loading} />
         {children}
       </body>
     </html>

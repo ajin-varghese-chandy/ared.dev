@@ -1,26 +1,29 @@
 import Image from "next/image";
 import {
   site,
+  labels,
   navigation,
-  highlights,
-  featuredCard,
-  projects,
-  stack,
-  aiToolsSection,
+  sections,
+  type FeaturedCard,
+  type Highlight,
+  type ProfileSection,
+  type Project,
+  type Section,
+  type StackGroup,
 } from "@/lib/content";
 import { DigitBackground } from "./components/digit-background";
 import { Sidebar } from "./components/tree-nav";
 
-function Portrait() {
+function Portrait({ avatar }: { avatar: ProfileSection["avatar"] }) {
   return (
     <div className="inline-block border border-border-strong p-3">
       <div className="relative h-[140px] w-[140px] overflow-hidden sm:h-[160px] sm:w-[160px]">
         <Image
-          src="/logo.jpeg"
-          alt={site.name}
+          src={avatar.src}
+          alt={avatar.alt}
           fill
           className="object-cover grayscale"
-          sizes="160px"
+          sizes="(min-width: 640px) 160px, 140px"
           priority
         />
       </div>
@@ -28,7 +31,7 @@ function Portrait() {
   );
 }
 
-function ProfileHighlights() {
+function ProfileHighlights({ highlights }: { highlights: Highlight[] }) {
   return (
     <div className="mt-6 space-y-3">
       {highlights.map((highlight, i) => (
@@ -54,37 +57,39 @@ function ProfileHighlights() {
   );
 }
 
-function FeaturedCard() {
+function FeaturedCardView({ card }: { card: FeaturedCard }) {
   return (
     <div className="border border-border bg-surface p-6 sm:p-7">
-      <h3 className="text-lg font-bold text-text">{featuredCard.title}</h3>
+      <h3 className="text-lg font-bold text-text">{card.title}</h3>
       <p className="mt-4 text-[15px] leading-relaxed text-text-soft">
-        {featuredCard.description}
+        {card.description}
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <a
-          href={featuredCard.ctaHref}
+          href={card.cta.href}
           target="_blank"
           rel="noreferrer"
           className="border border-dashed border-border-dashed px-5 py-2.5 text-sm text-text transition-colors duration-200 hover:border-text-soft hover:text-text-soft"
         >
-          {featuredCard.cta}
+          {card.cta.label}
         </a>
-        <a
-          href={featuredCard.secondaryHref}
-          className="text-sm text-text-muted transition-colors duration-200 hover:text-text-soft"
-        >
-          {featuredCard.secondary} ↗
-        </a>
+        {card.secondary && (
+          <a
+            href={card.secondary.href}
+            className="text-sm text-text-muted transition-colors duration-200 hover:text-text-soft"
+          >
+            {card.secondary.label} ↗
+          </a>
+        )}
       </div>
     </div>
   );
 }
 
-function Projects() {
+function Projects({ items }: { items: Project[] }) {
   return (
     <div className="space-y-5">
-      {projects.map((project) => (
+      {items.map((project) => (
         <article
           key={project.title}
           className="border border-border bg-surface p-5 sm:p-6"
@@ -118,7 +123,7 @@ function Projects() {
                   rel="noreferrer"
                   className="border border-dashed border-border-dashed px-4 py-2 text-sm text-text transition-colors duration-200 hover:border-text-soft hover:text-text-soft"
                 >
-                  Visit ↗
+                  {labels.visit} ↗
                 </a>
               )}
               {project.github && (
@@ -128,7 +133,7 @@ function Projects() {
                   rel="noreferrer"
                   className="text-sm text-text-muted transition-colors duration-200 hover:text-text-soft"
                 >
-                  GitHub ↗
+                  {labels.github} ↗
                 </a>
               )}
             </div>
@@ -139,10 +144,10 @@ function Projects() {
   );
 }
 
-function StackGroups() {
+function StackGroups({ groups }: { groups: StackGroup[] }) {
   return (
     <div className="grid gap-8 sm:grid-cols-2">
-      {stack.map((group) => (
+      {groups.map((group) => (
         <div key={group.category}>
           <h3 className="text-xs uppercase tracking-wider text-text-muted">
             {group.category}
@@ -161,10 +166,10 @@ function StackGroups() {
   );
 }
 
-function AiTools() {
+function ToolList({ items }: { items: string[] }) {
   return (
     <ul className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-      {aiToolsSection.items.map((item) => (
+      {items.map((item) => (
         <li
           key={item}
           className="flex items-center gap-2.5 border border-border bg-surface px-3 py-3 sm:gap-3 sm:px-4"
@@ -177,6 +182,95 @@ function AiTools() {
   );
 }
 
+function ProfileView({ section }: { section: ProfileSection }) {
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+        {/* Left Column */}
+        <div>
+          <Portrait avatar={section.avatar} />
+
+          <h1 className="mt-8 text-2xl font-bold tracking-tight text-text sm:text-[28px]">
+            {section.headline}
+          </h1>
+          <p className="mt-2 text-[15px] text-text-muted">{section.role}</p>
+
+          <ProfileHighlights highlights={section.highlights} />
+        </div>
+
+        {/* Right Column - Featured Card */}
+        {section.featuredCard && (
+          <div className="lg:pt-0">
+            <FeaturedCardView card={section.featuredCard} />
+          </div>
+        )}
+      </div>
+
+      {/* Divider */}
+      <div className="my-10 h-px bg-border sm:my-12" />
+
+      {/* Bio */}
+      <p className="max-w-2xl text-[15px] leading-[1.7] text-text-soft">
+        {section.bio}
+      </p>
+    </>
+  );
+}
+
+function SectionContent({ section }: { section: Section }) {
+  switch (section.kind) {
+    case "profile":
+      return <ProfileView section={section} />;
+    case "projects":
+      return <Projects items={section.items} />;
+    case "stack":
+      return <StackGroups groups={section.groups} />;
+    case "tools":
+      return <ToolList items={section.items} />;
+    case "contact":
+      return (
+        <div>
+          <a
+            href={`mailto:${section.email}`}
+            className="break-words text-[15px] text-text-soft underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
+          >
+            {section.email}
+          </a>
+          {section.note && (
+            <p className="mt-3 text-sm text-text-muted">{section.note}</p>
+          )}
+        </div>
+      );
+  }
+}
+
+const sectionClassName =
+  "scroll-mt-20 p-5 sm:p-10 md:scroll-mt-0 md:p-12";
+
+function SectionView({
+  section,
+  isFirst,
+}: {
+  section: Section;
+  isFirst: boolean;
+}) {
+  return (
+    <section
+      id={section.id}
+      className={
+        isFirst ? sectionClassName : `border-t border-border ${sectionClassName}`
+      }
+    >
+      {section.kind !== "profile" && (
+        <h2 className="text-lg font-bold text-text">{section.title}</h2>
+      )}
+      <div className={section.kind === "profile" ? "" : "mt-6"}>
+        <SectionContent section={section} />
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <div className="relative min-h-dvh md:h-dvh md:overflow-hidden">
@@ -185,76 +279,22 @@ export default function Home() {
       {/* Main Container */}
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[1360px] flex-col border-x border-border bg-bg sm:my-8 sm:min-h-[calc(100dvh-4rem)] sm:rounded-2xl sm:border md:h-[calc(100dvh-4rem)] md:min-h-0 md:overflow-hidden">
         <div className="flex min-h-0 flex-1 flex-col md:flex-row">
-          <Sidebar navItems={navigation} socials={site.socials} logoName={site.shortName} />
+          <Sidebar
+            navItems={navigation}
+            socials={site.socials}
+            logoName={site.shortName}
+            socialsLabel={labels.findMeOn}
+          />
 
           {/* Main Content */}
           <main className="min-h-0 flex-1 bg-bg md:overflow-y-auto md:overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {/* Profile Section */}
-            <section id="profile" className="scroll-mt-20 p-5 sm:p-10 md:scroll-mt-0 md:p-12">
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
-                {/* Left Column */}
-                <div>
-                  <Portrait />
-
-                  <h1 className="mt-8 text-2xl font-bold tracking-tight text-text sm:text-[28px]">
-                    Hi, I&apos;m {site.name}!
-                  </h1>
-                  <p className="mt-2 text-[15px] text-text-muted">{site.role}</p>
-
-                  <ProfileHighlights />
-                </div>
-
-                {/* Right Column - Featured Card */}
-                <div className="lg:pt-0">
-                  <FeaturedCard />
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="my-10 h-px bg-border sm:my-12" />
-
-              {/* Bio */}
-              <p className="max-w-2xl text-[15px] leading-[1.7] text-text-soft">
-                {site.intro}
-              </p>
-            </section>
-
-            {/* Projects Section */}
-            <section id="projects" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
-              <h2 className="text-lg font-bold text-text">Projects</h2>
-              <div className="mt-6">
-                <Projects />
-              </div>
-            </section>
-
-            {/* Stack Section */}
-            <section id="stack" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
-              <h2 className="text-lg font-bold text-text">Stack</h2>
-              <div className="mt-6">
-                <StackGroups />
-              </div>
-            </section>
-
-            {/* AI Tools Section */}
-            <section id="ai-tools" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
-              <h2 className="text-lg font-bold text-text">{aiToolsSection.title}</h2>
-              <div className="mt-6">
-                <AiTools />
-              </div>
-            </section>
-
-            {/* Contact Section */}
-            <section id="contact" className="scroll-mt-20 border-t border-border p-5 sm:p-10 md:scroll-mt-0 md:p-12">
-              <h2 className="text-lg font-bold text-text">Contact</h2>
-              <div className="mt-6">
-                <a
-                  href={`mailto:${site.email}`}
-                  className="break-words text-[15px] text-text-soft underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
-                >
-                  {site.email}
-                </a>
-              </div>
-            </section>
+            {sections.map((section, index) => (
+              <SectionView
+                key={section.id}
+                section={section}
+                isFirst={index === 0}
+              />
+            ))}
           </main>
         </div>
       </div>

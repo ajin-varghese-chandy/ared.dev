@@ -45,7 +45,13 @@ function shadeFor(letter: number, row: number, column: number) {
 const HOLD_MS = 1600;
 const FADE_MS = 400;
 
-export function LoadingScreen({ name }: { name: string }) {
+export function LoadingScreen({
+  name,
+  label = "Loading",
+}: {
+  name: string;
+  label?: string;
+}) {
   const [isLeaving, setIsLeaving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -108,7 +114,7 @@ export function LoadingScreen({ name }: { name: string }) {
       role="status"
       aria-live="polite"
     >
-      <span className="sr-only">Loading</span>
+      <span className="sr-only">{label}</span>
 
       <div
         aria-hidden="true"
