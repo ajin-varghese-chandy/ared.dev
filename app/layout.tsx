@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { site } from "@/lib/content";
+import { LoadingScreen } from "./components/loading-screen";
 import "./globals.css";
 
 const jetbrains = JetBrains_Mono({
@@ -33,6 +34,8 @@ export const metadata: Metadata = {
   },
 };
 
+const loadingName = site.shortName;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -55,6 +58,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <LoadingScreen name={loadingName} />
         {children}
       </body>
     </html>

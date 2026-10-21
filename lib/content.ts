@@ -40,7 +40,7 @@ export const site = {
   role: "Full Stack Product Builder",
   email: "careerajin@gmail.com",
   intro:
-    "Dropped out of traditional path to build products that matter. Spent years shipping web apps, Chrome extensions, and open-source tools. Now focused on AI integrations, real-time systems, and automation. One of the emerging voices in the indie builder space.",
+    "Full-stack developer and indie builder from India. Spent years experimenting with web apps, Chrome extensions, and AI-powered tools. Focused on turning practical ideas into shipped products using Next.js, React, Node.js, and MongoDB. Building toward a future of independent software businesses.",
   socials: [
     { label: "github", href: "https://github.com/ajin-varghese-chandy", icon: "github" as const },
     {
@@ -62,10 +62,8 @@ export const navigation: NavItem[] = [
 ];
 
 export const highlights: Highlight[] = [
-  { text: "3+ products shipped" },
-  { text: "1,000+ active users" },
-  { text: "Full-stack builder" },
-  { text: "Open source contributor" },
+  { text: "Full-stack developer" },
+  { text: "2,000+ ACTIVE USERS" },
   { text: "Chrome Web Store published" },
 ];
 
