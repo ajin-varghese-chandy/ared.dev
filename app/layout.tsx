@@ -3,7 +3,6 @@ import { JetBrains_Mono } from "next/font/google";
 import { site } from "@/lib/content";
 import "./globals.css";
 
-/** The one font: monospace, terminal, hacker. */
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
@@ -16,7 +15,7 @@ const description = `${site.name} — ${site.role}. ${site.intro}`;
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#050705",
+  themeColor: "#000000",
 };
 
 export const metadata: Metadata = {
@@ -51,7 +50,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={jetbrains.variable}>
-      <body className="flex min-h-screen flex-col">
+      <body className="min-h-screen antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
