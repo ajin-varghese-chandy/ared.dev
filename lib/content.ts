@@ -1,6 +1,7 @@
 export type Social = {
   label: string;
   href: string;
+  icon: "github" | "linkedin" | "x" | "email";
 };
 
 export type Project = {
@@ -18,20 +19,59 @@ export type StackGroup = {
   items: string[];
 };
 
+export type NavItem = {
+  label: string;
+  href: string;
+};
+
+export type Highlight = {
+  text: string;
+  link?: { text: string; href: string };
+};
+
 export const site = {
   name: "Ajin Varghese Chandy",
+  shortName: "AJIN",
   role: "Full Stack Product Builder",
   email: "careerajin@gmail.com",
   intro:
-    "I design and ship fast, reliable web products — automation, real-time systems, and AI integrations.",
+    "Dropped out of traditional path to build products that matter. Spent years shipping web apps, Chrome extensions, and open-source tools. Now focused on AI integrations, real-time systems, and automation. One of the emerging voices in the indie builder space.",
   socials: [
-    { label: "github", href: "https://github.com/aajinn" },
+    { label: "github", href: "https://github.com/ajin-varghese-chandy", icon: "github" as const },
     {
       label: "linkedin",
       href: "https://www.linkedin.com/in/ajin-varghese-chandy-1654a4276",
+      icon: "linkedin" as const,
     },
-    { label: "x", href: "https://x.com/areddev" },
+    { label: "x", href: "https://x.com/ajiinvc", icon: "x" as const },
+    { label: "email", href: "mailto:careerajin@gmail.com", icon: "email" as const },
   ] satisfies Social[],
+};
+
+export const navigation: NavItem[] = [
+  { label: "Profile", href: "#profile" },
+  { label: "Projects", href: "#projects" },
+  { label: "Stack", href: "#stack" },
+  { label: "Contact", href: "#contact" },
+];
+
+export const highlights: Highlight[] = [
+  { text: "3+ products shipped" },
+  { text: "1,000+ active users" },
+  { text: "Full-stack builder" },
+  { text: "Open source contributor" },
+  { text: "Chrome Web Store published" },
+];
+
+export const featuredCard = {
+  title: "Real-Time Speed Monitor",
+  description:
+    "A Chrome extension that displays live upload, download, and ping speeds directly in the browser toolbar. Built with Manifest V3 and shipped to 1,000+ active users.",
+  cta: "View Project",
+  ctaHref:
+    "https://chromewebstore.google.com/detail/real-time-internet-speed/baffnjfijbgpjchgdmbnpkloeccnhenl",
+  secondary: "Learn more",
+  secondaryHref: "#projects",
 };
 
 export const projects: Project[] = [
@@ -44,31 +84,21 @@ export const projects: Project[] = [
     tags: ["chrome mv3", "javascript", "performance"],
     href: "https://chromewebstore.google.com/detail/real-time-internet-speed/baffnjfijbgpjchgdmbnpkloeccnhenl",
     github: "https://github.com/aajinn/real-time-internet-speed",
-  },
-  {
-    year: "2025",
-    title: "MongooseNet",
-    kind: "Open-source NuGet package",
-    summary:
-      "A C# library for schema-flexible data handling on top of MongoDB — typed access without losing document flexibility.",
-    tags: [".net", "c#", "mongodb"],
-    href: "https://www.nuget.org/packages/MongooseNet/",
-    github: "https://github.com/aajinn/MongooseNet",
-  },
-  {
-    year: "2026",
-    title: "TaskFlow",
-    kind: "Full-stack product",
-    summary:
-      "Project management for small teams with live collaboration over WebSockets, JWT auth, and role-based workspaces.",
-    tags: ["next.js", "express", "websockets", "postgresql"],
-    github: "https://github.com/aajinn",
-  },
+  }
 ];
 
 export const stack: StackGroup[] = [
-  { category: "frontend", items: ["React", "Next.js", "TypeScript", "Tailwind"] },
-  { category: "backend", items: ["Node.js", "Express", "REST", "WebSockets"] },
+  {
+    category: "frontend",
+    items: ["React", "Next.js", "TypeScript", "Tailwind"],
+  },
+  {
+    category: "backend",
+    items: ["Node.js", "Express", "REST", "WebSockets"],
+  },
   { category: "data", items: ["PostgreSQL", "MongoDB", "Redis"] },
-  { category: "platform", items: ["Docker", "CI/CD", "Chrome Ext", "AI APIs"] },
+  {
+    category: "platform",
+    items: ["Docker", "CI/CD", "Chrome Ext", "AI APIs"],
+  },
 ];
