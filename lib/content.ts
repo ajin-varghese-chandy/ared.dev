@@ -149,6 +149,15 @@ export const sections: Section[] = [
     items: [
       {
         year: "2026",
+        title: "DOCKET",
+        kind: "Freelancer & Client Platform",
+        summary:
+          "A workspace for freelancers to manage clients, projects, invoices, file sharing, progress updates, and verified online payments, while clients track shared work and payment status.",
+        tags: ["React", "Vite", "Tailwind CSS", "Firebase Auth", "Express", "Razorpay"],
+        github: "https://github.com/ajin-varghese-chandy/docket",
+      },
+      {
+        year: "2026",
         title: "StayInKochi",
         kind: "Full-Stack Web App",
         href: "https://stay-in-kochi.vercel.app/",
