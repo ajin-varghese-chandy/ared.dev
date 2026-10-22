@@ -148,6 +148,15 @@ export const sections: Section[] = [
     title: "Projects",
     items: [
       {
+        year: "2026",
+        title: "StayInKochi",
+        kind: "Full-Stack Web App",
+        summary:
+          "A hostel and PG management platform for Kochi, with a public branch directory, tenant portal, and centralized owner console for rooms, beds, rent, food plans, maintenance, requests, payments, and chat.",
+        tags: ["React", "Vite", "Tailwind CSS", "Redux Toolkit", "Firebase", "Express"],
+        github: "https://github.com/ajin-varghese-chandy/stayInKochi",
+      },
+      {
         year: "2025",
         title: "Real-Time Internet Speed Monitor",
         kind: "Chrome Extension",
