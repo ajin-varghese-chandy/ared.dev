@@ -151,6 +151,7 @@ export const sections: Section[] = [
         year: "2026",
         title: "DOCKET",
         kind: "Freelancer & Client Platform",
+        href: "https://docket-three-ebon.vercel.app/",
         summary:
           "A workspace for freelancers to manage clients, projects, invoices, file sharing, progress updates, and verified online payments, while clients track shared work and payment status.",
         tags: ["React", "Vite", "Tailwind CSS", "Firebase Auth", "Express", "Razorpay"],
