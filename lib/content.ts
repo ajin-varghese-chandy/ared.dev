@@ -151,6 +151,7 @@ export const sections: Section[] = [
         year: "2026",
         title: "StayInKochi",
         kind: "Full-Stack Web App",
+        href: "https://stay-in-kochi.vercel.app/",
         summary:
           "A hostel and PG management platform for Kochi, with a public branch directory, tenant portal, and centralized owner console for rooms, beds, rent, food plans, maintenance, requests, payments, and chat.",
         tags: ["React", "Vite", "Tailwind CSS", "Redux Toolkit", "Firebase", "Express"],
