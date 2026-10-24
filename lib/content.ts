@@ -89,7 +89,7 @@ export const site = {
   name: "Ajin Varghese Chandy",
   shortName: "AJIN",
   url: "https://ajin-varghese.vercel.app/",
-  role: "Full Stack Product Builder",
+  role: "Full Stack Developer",
   email: "careerajin@gmail.com",
   description:
     "Full-stack developer and indie builder from India. Spent years experimenting with web apps, Chrome extensions, and AI-powered tools. Focused on turning practical ideas into shipped products using Next.js, React, Node.js, and MongoDB. Building toward a future of independent software businesses.",
@@ -126,7 +126,6 @@ export const sections: Section[] = [
     role: site.role,
     avatar: { src: "/logo.jpeg", alt: site.name },
     highlights: [
-      { text: "Full-stack developer" },
       { text: "2,000+ ACTIVE USERS" },
       { text: "Chrome Web Store published" },
     ],
