@@ -88,11 +88,11 @@ function FeaturedCardView({ card }: { card: FeaturedCard }) {
 
 function Projects({ items }: { items: Project[] }) {
   return (
-    <div className="space-y-5">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       {items.map((project) => (
         <article
           key={project.title}
-          className="border border-border bg-surface p-5 sm:p-6"
+          className="flex h-full flex-col border border-border bg-surface p-5 transition-colors duration-200 hover:border-border-strong sm:p-6"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="text-[15px] font-bold text-text">{project.title}</h3>
@@ -115,7 +115,7 @@ function Projects({ items }: { items: Project[] }) {
             ))}
           </div>
           {(project.href || project.github) && (
-            <div className="mt-5 flex flex-wrap items-center gap-4">
+            <div className="mt-auto flex flex-wrap items-center gap-4 pt-5">
               {project.href && (
                 <a
                   href={project.href}
