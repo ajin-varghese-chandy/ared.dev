@@ -34,13 +34,3 @@ app/
 lib/
   content.ts      All site content
 ```
-
-## Design
-
-Minimal terminal / hacker aesthetic. Near-black background with a faint green
-scanline, one green accent (`#00ff57`), and JetBrains Mono for everything —
-headings, body, and labels. Sections are prefixed like shell commands
-(`$ ls ./projects`, `$ cat ./stack.txt`) and headings end on a blinking caret.
-
-Tokens live in `app/globals.css` under `@theme`. Motion is limited to the caret,
-which stops blinking under `prefers-reduced-motion: reduce`.
