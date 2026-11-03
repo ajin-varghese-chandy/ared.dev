@@ -101,6 +101,55 @@
   to { opacity: 1; transform: scale(1.08); }
 }
 
+.rating-toast-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.35rem;
+  text-decoration: none;
+}
+
+.rating-stars {
+  color: #f5b82e;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 8px rgb(245 184 46 / 35%);
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.rating-toast-link:hover .rating-stars,
+.rating-toast-link:focus-visible .rating-stars {
+  filter: drop-shadow(0 0 5px rgb(245 184 46 / 65%));
+  transform: translateY(-1px);
+}
+
+.rating-toast-link::after {
+  position: absolute;
+  z-index: 20;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  width: max-content;
+  max-width: min(280px, 80vw);
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #3b3526;
+  border-radius: 8px;
+  background: #211f1c;
+  color: #f7f2e8;
+  content: "Rated 4.2 / 5 on the Chrome Web Store · View extension";
+  font-size: 11px;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.rating-toast-link:hover::after,
+.rating-toast-link:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
