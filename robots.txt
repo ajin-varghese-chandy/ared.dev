@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ared.dev/sitemap.xml
+
+# Public AI-readable professional profile
+# See https://ared.dev/llms.txt
