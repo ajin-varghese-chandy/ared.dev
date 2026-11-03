@@ -48,9 +48,17 @@ function ProfileHighlights({ highlights }: { highlights: Highlight[] }) {
                 {" "}
                 <a
                   href={highlight.link.href}
-                  className="underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
+                  className={highlight.text === "4.2 RATING" ? "rating-toast-link" : "underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"}
+                  title={highlight.text === "4.2 RATING" ? "Rated 4.2 out of 5 on the Chrome Web Store. View the Real-Time Internet Speed Monitor extension." : undefined}
+                  aria-label={highlight.text === "4.2 RATING" ? "4.2 out of 5 stars on the Chrome Web Store. Open extension listing." : undefined}
+                  target={highlight.text === "4.2 RATING" ? "_blank" : undefined}
+                  rel={highlight.text === "4.2 RATING" ? "noreferrer" : undefined}
                 >
-                  {highlight.link.text}
+                  {highlight.text === "4.2 RATING" ? (
+                    <span className="rating-stars" aria-hidden="true">{highlight.link.text}</span>
+                  ) : (
+                    highlight.link.text
+                  )}
                 </a>
               </>
             )}
