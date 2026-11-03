@@ -127,7 +127,7 @@ export const sections: Section[] = [
     avatar: { src: "/logo.jpeg", alt: site.name },
     highlights: [
       { text: "2,000+ ACTIVE USERS" },
-      { text: "Chrome Web Store published" },
+      { text: "4.2 RATING", link: { text: "★★★★★", href: "https://chromewebstore.google.com/detail/real-time-internet-speed/baffnjfijbgpjchgdmbnpkloeccnhenl" } },
     ],
     featuredCard: {
       title: "Real-Time Speed Monitor",
