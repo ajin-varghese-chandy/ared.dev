@@ -48,13 +48,13 @@ function ProfileHighlights({ highlights }: { highlights: Highlight[] }) {
                 {" "}
                 <a
                   href={highlight.link.href}
-                  className={highlight.text === "4.2 RATING" ? "rating-toast-link" : "underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"}
-                  title={highlight.text === "4.2 RATING" ? "Rated 4.2 out of 5 on the Chrome Web Store. View the Real-Time Internet Speed Monitor extension." : undefined}
-                  aria-label={highlight.text === "4.2 RATING" ? "4.2 out of 5 stars on the Chrome Web Store. Open extension listing." : undefined}
-                  target={highlight.text === "4.2 RATING" ? "_blank" : undefined}
-                  rel={highlight.text === "4.2 RATING" ? "noreferrer" : undefined}
+                  className={highlight.text === "4.2/5" ? "rating-toast-link" : "underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"}
+                  title={highlight.text === "4.2/5" ? "Rated 4.2 out of 5 on the Chrome Web Store. View the Real-Time Internet Speed Monitor extension." : undefined}
+                  aria-label={highlight.text === "4.2/5" ? "4.2 out of 5 stars on the Chrome Web Store. Open extension listing." : undefined}
+                  target={highlight.text === "4.2/5" ? "_blank" : undefined}
+                  rel={highlight.text === "4.2/5" ? "noreferrer" : undefined}
                 >
-                  {highlight.text === "4.2 RATING" ? (
+                  {highlight.text === "4.2/5" ? (
                     <span className="rating-stars" aria-hidden="true">{highlight.link.text}</span>
                   ) : (
                     highlight.link.text
