@@ -105,43 +105,56 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-left: 0.35rem;
+  margin-left: 0.3rem;
+  padding: 0.12rem 0.42rem;
+  border: 1px solid #38332a;
+  border-radius: 999px;
+  background: #171614;
   text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
 }
 
 .rating-stars {
-  color: #f5b82e;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 8px rgb(245 184 46 / 35%);
-  transition: filter 160ms ease, transform 160ms ease;
+  color: #eabf55;
+  font-size: 0.82em;
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+  text-shadow: 0 0 5px rgb(234 191 85 / 18%);
+  transition: color 160ms ease, filter 160ms ease;
+}
+
+.rating-toast-link:hover,
+.rating-toast-link:focus-visible {
+  border-color: #8b713b;
+  background: #211e18;
 }
 
 .rating-toast-link:hover .rating-stars,
 .rating-toast-link:focus-visible .rating-stars {
-  filter: drop-shadow(0 0 5px rgb(245 184 46 / 65%));
-  transform: translateY(-1px);
+  color: #ffd778;
+  filter: drop-shadow(0 0 3px rgb(255 215 120 / 30%));
 }
 
 .rating-toast-link::after {
   position: absolute;
   z-index: 20;
-  bottom: calc(100% + 12px);
+  bottom: calc(100% + 10px);
   left: 50%;
   width: max-content;
-  max-width: min(280px, 80vw);
-  padding: 0.65rem 0.8rem;
-  border: 1px solid #3b3526;
-  border-radius: 8px;
-  background: #211f1c;
-  color: #f7f2e8;
-  content: "Rated 4.2 / 5 on the Chrome Web Store · View extension";
-  font-size: 11px;
-  line-height: 1.45;
+  max-width: min(260px, 80vw);
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #38332a;
+  border-radius: 7px;
+  background: #171614;
+  color: #d8d2c6;
+  content: "4.2 out of 5 · Chrome Web Store";
+  font-size: 10px;
+  line-height: 1.4;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, 4px);
-  transition: opacity 160ms ease, transform 160ms ease;
+  transform: translate(-50%, 3px);
+  transition: opacity 150ms ease, transform 150ms ease;
+  white-space: nowrap;
 }
 
 .rating-toast-link:hover::after,
