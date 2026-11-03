@@ -38,7 +38,11 @@ function ProfileHighlights({ highlights }: { highlights: Highlight[] }) {
         <div key={i} className="flex items-center gap-3">
           <div className="h-5 w-px bg-border-strong" />
           <p className="text-[15px] text-text">
-            {highlight.text}
+            {highlight.text === "2,000+ ACTIVE USERS" ? (
+              <span className="active-users-fire">{highlight.text}</span>
+            ) : (
+              highlight.text
+            )}
             {highlight.link && (
               <>
                 {" "}
