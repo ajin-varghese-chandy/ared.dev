@@ -145,6 +145,32 @@ function Projects({ items }: { items: Project[] }) {
   );
 }
 
+
+const brandIcons: Record<string, string> = {
+  react: "react",
+  "next.js": "nextdotjs",
+  typescript: "typescript",
+  tailwind: "tailwindcss",
+  "node.js": "nodedotjs",
+  express: "express",
+  postgresql: "postgresql",
+  mongodb: "mongodb",
+  redis: "redis",
+  docker: "docker",
+  "ci/cd": "githubactions",
+  "chrome ext": "googlechrome",
+  "ai apis": "openai",
+  opencode: "opencode",
+  kimi: "moonshot",
+  claude: "anthropic",
+  deepseek: "deepseek",
+};
+function BrandIcon({ name, tone = "light" }: { name: string; tone?: "light" | "dark" }) {
+  const slug = brandIcons[name.toLowerCase()];
+  if (!slug) return <span className="brand-icon-fallback" aria-hidden="true">{name.slice(0, 2).toUpperCase()}</span>;
+  return <img className={\`brand-icon brand-icon-\${tone}\`} src={\`https://cdn.simpleicons.org/\${slug}/\${tone === "light" ? "FFFFFF" : "171717"}\`} alt="" loading="lazy" />;
+}
+
 function StackGroups({ groups }: { groups: StackGroup[] }) {
   return (
     <div className="shelf-scene">
@@ -155,7 +181,7 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
           <div className="rack-category">{group.category}</div>
           <div className="rack-contents tech-rack-contents">
             {group.items.map((item, index) => <div className="tech-book" key={item} style={{ "--book-hue": (groupIndex * 67 + index * 31 + 145) % 360 } as CSSProperties & { "--book-hue": number }}>
-              <span className="book-cap" /><strong>{item}</strong><small>{String(index + 1).padStart(2, "0")}</small>
+              <span className="book-cap" /><span className="tech-book-icon"><BrandIcon name={item} /></span><strong>{item}</strong><small>{String(index + 1).padStart(2, "0")}</small>
             </div>)}
           </div>
           <div className="wood-shelf"><span /></div>
@@ -174,7 +200,7 @@ function ToolList({ items }: { items: string[] }) {
         <div className="rack-level">
           <div className="rack-contents ai-rack-contents">
             {items.map((item, index) => <div className="ai-product" key={item} style={{ "--tool-hue": (index * 53 + 265) % 360 } as CSSProperties & { "--tool-hue": number }}>
-              <div className="ai-product-cap" /><div className="ai-product-label"><span>{item.slice(0, 1).toUpperCase()}</span><strong>{item}</strong><small>AI TOOLKIT</small></div>
+              <div className="ai-product-cap" /><div className="ai-product-label"><span className="ai-product-icon"><BrandIcon name={item} /></span><strong>{item}</strong><small>AI TOOLKIT</small></div>
             </div>)}
           </div>
           <div className="wood-shelf"><span /></div>
