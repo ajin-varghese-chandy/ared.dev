@@ -408,3 +408,33 @@
 @media(prefers-reduced-motion:reduce) {
   .product-links a { transition:none; }
 }
+
+
+/* Four visible front-facing rack legs: two at the front corners and two rear posts. */
+.physical-rack::after {
+  position:absolute;
+  z-index:5;
+  top:0;
+  bottom:13px;
+  left:12px;
+  right:12px;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) left top / 12px 100% no-repeat,
+    linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) right top / 12px 100% no-repeat;
+  content:"";
+  filter:drop-shadow(2px 1px 2px #0009);
+}
+.rack-upright-left,.rack-upright-right { z-index:4; }
+.rack-upright-left { left:8px; }
+.rack-upright-right { right:8px; }
+.rack-level { position:relative; }
+@media(max-width:640px) {
+  .physical-rack::after {
+    left:5px;
+    right:5px;
+    background:
+      linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) left top / 9px 100% no-repeat,
+      linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) right top / 9px 100% no-repeat;
+  }
+}
