@@ -24,7 +24,7 @@ const toolMarks: Record<string, string> = {
 };
 
 function Shelf({ title, icon, children, className = "" }: {
-  title: string; icon: string; children: React.ReactNode; className?: string;
+  title: string; icon: string; children: ReactNode; className?: string;
 }) {
   return (
     <section className={`shelf-row ${className}`}>
