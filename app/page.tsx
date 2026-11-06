@@ -184,13 +184,25 @@ function ToolList({ items }: { items: string[] }) {
   );
 }
 
-      {/* Divider */}
-      <div className="my-10 h-px bg-border sm:my-12" />
 
-      {/* Bio */}
-      <p className="max-w-2xl text-[15px] leading-[1.7] text-text-soft">
-        {section.bio}
-      </p>
+function ProfileView({ section }: { section: ProfileSection }) {
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+        <div>
+          <Portrait avatar={section.avatar} />
+          <h1 className="mt-8 text-2xl font-bold tracking-tight text-text sm:text-[28px]">{section.headline}</h1>
+          <p className="mt-2 text-[15px] text-text-muted">{section.role}</p>
+          <ProfileHighlights highlights={section.highlights} />
+        </div>
+        {section.featuredCard && (
+          <div className="lg:pt-0">
+            <FeaturedCardView card={section.featuredCard} />
+          </div>
+        )}
+      </div>
+      <div className="my-10 h-px bg-border sm:my-12" />
+      <p className="max-w-2xl text-[15px] leading-[1.7] text-text-soft">{section.bio}</p>
     </>
   );
 }
