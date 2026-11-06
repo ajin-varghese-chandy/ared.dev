@@ -432,3 +432,23 @@
   .rack-leg-back-left { left:27px; }
   .rack-leg-back-right { right:27px; }
 }
+
+
+/* One continuous timber shelf: category labels group the books, not separate levels. */
+.single-tech-rack { overflow:hidden; }
+.single-tech-level { min-height:160px; padding:20px 12px 0; }
+.tech-rack-scroll { width:100%; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; scrollbar-color:#66513a #171717; }
+.tech-rack-contents { display:flex; width:max-content; min-width:100%; min-height:105px; align-items:flex-end; justify-content:flex-start; gap:clamp(12px,2vw,24px); padding:0 8px; }
+.tech-category-group { display:flex; flex:none; flex-direction:column; justify-content:flex-end; gap:9px; }
+.tech-category-group .rack-category { position:static; color:#b7b0a5; font-size:9px; letter-spacing:.16em; white-space:nowrap; }
+.tech-category-items { display:flex; align-items:flex-end; gap:7px; }
+.single-tech-level .wood-shelf { width:100%; min-width:100%; margin:0; }
+.single-tech-level .tech-book { width:clamp(48px,6vw,72px); height:94px; flex:none; }
+.single-tech-level .tech-book strong { font-size:9px; }
+@media(max-width:640px) {
+  .single-tech-level { min-height:145px; padding:16px 8px 0; }
+  .tech-rack-contents { min-height:95px; gap:14px; }
+  .tech-category-items { gap:6px; }
+  .single-tech-level .tech-book { width:54px; height:78px; padding:7px 5px; }
+  .single-tech-level .tech-book strong { font-size:8px; }
+}
