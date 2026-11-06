@@ -168,7 +168,7 @@ const brandIcons: Record<string, string> = {
 function BrandIcon({ name, tone = "light" }: { name: string; tone?: "light" | "dark" }) {
   const slug = brandIcons[name.toLowerCase()];
   if (!slug) return <span className="brand-icon-fallback" aria-hidden="true">{name.slice(0, 2).toUpperCase()}</span>;
-  return <img className={\`brand-icon brand-icon-\${tone}\`} src={\`https://cdn.simpleicons.org/\${slug}/\${tone === "light" ? "FFFFFF" : "171717"}\`} alt="" loading="lazy" />;
+  return <img className={`brand-icon brand-icon-${tone}`} src={`https://cdn.simpleicons.org/${slug}/${tone === "light" ? "FFFFFF" : "171717"}`} alt="" loading="lazy" />;
 }
 
 function StackGroups({ groups }: { groups: StackGroup[] }) {
