@@ -99,6 +99,17 @@ function FeaturedCardView({ card }: { card: FeaturedCard }) {
   );
 }
 
+function RackFrame() {
+  return (
+    <>
+      <div className="rack-leg rack-leg-back rack-leg-back-left" aria-hidden="true" />
+      <div className="rack-leg rack-leg-back rack-leg-back-right" aria-hidden="true" />
+      <div className="rack-upright rack-upright-left" aria-hidden="true" />
+      <div className="rack-upright rack-upright-right" aria-hidden="true" />
+    </>
+  );
+}
+
 function Projects({ items }: { items: Project[] }) {
   const palettes = [
     { card: "#08a85e", ink: "#101512", muted: "#163b2b" },
@@ -111,7 +122,7 @@ function Projects({ items }: { items: Project[] }) {
     <div className="shelf-scene">
       <div className="shelf-caption"><span>SELECTED BUILDS</span><span>{items.length} PROJECTS</span></div>
       <div className="physical-rack project-rack">
-        <div className="rack-upright rack-upright-left" /><div className="rack-upright rack-upright-right" />
+        <RackFrame />
         {Array.from({ length: Math.ceil(items.length / 2) }, (_, shelfIndex) => (
           <div className="rack-level" key={shelfIndex}>
             <div className="rack-contents project-rack-contents">
@@ -176,7 +187,7 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
     <div className="shelf-scene">
       <div className="shelf-caption"><span>TOOLS OF THE TRADE</span><span>{groups.reduce((n, group) => n + group.items.length, 0)} TECHNOLOGIES</span></div>
       <div className="physical-rack compact-rack">
-        <div className="rack-upright rack-upright-left" /><div className="rack-upright rack-upright-right" />
+        <RackFrame />
         {groups.map((group, groupIndex) => <div className="rack-level" key={group.category}>
           <div className="rack-category">{group.category}</div>
           <div className="rack-contents tech-rack-contents">
@@ -196,7 +207,7 @@ function ToolList({ items }: { items: string[] }) {
     <div className="shelf-scene">
       <div className="shelf-caption"><span>AI WORKBENCH</span><span>{items.length} TOOLS</span></div>
       <div className="physical-rack compact-rack">
-        <div className="rack-upright rack-upright-left" /><div className="rack-upright rack-upright-right" />
+        <RackFrame />
         <div className="rack-level">
           <div className="rack-contents ai-rack-contents">
             {items.map((item, index) => <div className="ai-product" key={item} style={{ "--tool-hue": (index * 53 + 265) % 360 } as CSSProperties & { "--tool-hue": number }}>
