@@ -410,18 +410,18 @@
 }
 
 
-/* Four visible front-facing rack legs: two at the front corners and two rear posts. */
+/* Rear pair of rack legs, inset from the two front corner uprights. */
 .physical-rack::after {
   position:absolute;
-  z-index:5;
-  top:0;
-  bottom:13px;
-  left:12px;
-  right:12px;
+  z-index:2;
+  top:14px;
+  bottom:22px;
+  left:38px;
+  right:38px;
   pointer-events:none;
   background:
-    linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) left top / 12px 100% no-repeat,
-    linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) right top / 12px 100% no-repeat;
+    linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) left top / 10px 100% no-repeat,
+    linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) right top / 10px 100% no-repeat;
   content:"";
   filter:drop-shadow(2px 1px 2px #0009);
 }
@@ -431,10 +431,10 @@
 .rack-level { position:relative; }
 @media(max-width:640px) {
   .physical-rack::after {
-    left:5px;
-    right:5px;
+    left:27px;
+    right:27px;
     background:
-      linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) left top / 9px 100% no-repeat,
-      linear-gradient(90deg,#080808 0%,#777 22%,#292929 52%,#080808 100%) right top / 9px 100% no-repeat;
+      linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) left top / 8px 100% no-repeat,
+      linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) right top / 8px 100% no-repeat;
   }
 }
