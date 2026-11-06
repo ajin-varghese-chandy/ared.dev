@@ -183,8 +183,6 @@ function ToolList({ items }: { items: string[] }) {
     </div>
   );
 }
-       )}
-      </div>
 
       {/* Divider */}
       <div className="my-10 h-px bg-border sm:my-12" />
