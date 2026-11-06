@@ -163,6 +163,60 @@
   transform: translate(-50%, 0);
 }
 
+/* 3-D shelf effect for project cards */
+.project-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.project-card-3d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* right face */
+  box-shadow:
+    6px 6px 0 -1px rgba(0, 0, 0, 0.55),
+    7px 7px 0 0px rgba(0, 0, 0, 0.35),
+    10px 10px 0 -1px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+  transition: box-shadow 200ms ease;
+}
+
+.project-card-3d::after {
+  content: "";
+  position: absolute;
+  /* bottom shelf face */
+  left: 4px;
+  right: -6px;
+  bottom: -7px;
+  height: 7px;
+  border-radius: 0 0 inherit inherit;
+  background: rgba(0, 0, 0, 0.35);
+  filter: blur(1px);
+  pointer-events: none;
+  transition: all 200ms ease;
+}
+
+.project-card-3d:hover {
+  transform: translateY(-4px) translateX(-2px);
+}
+
+.project-card-3d:hover::before {
+  box-shadow:
+    8px 8px 0 -1px rgba(0, 0, 0, 0.55),
+    10px 10px 0 0px rgba(0, 0, 0, 0.35),
+    14px 14px 0 -1px rgba(0, 0, 0, 0.18);
+}
+
+.project-card-3d:hover::after {
+  left: 6px;
+  right: -8px;
+  bottom: -10px;
+  height: 10px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

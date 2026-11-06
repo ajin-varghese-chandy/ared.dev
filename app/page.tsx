@@ -124,7 +124,7 @@ function Projects({ items }: { items: Project[] }) {
         return (
           <article
             key={project.title}
-            className={`group flex h-full min-w-0 flex-col rounded-[15px] border-2 ${palette.border} ${palette.card} p-3.5 shadow-[7px_8px_0_rgba(255,255,255,0.09)] transition-transform duration-200 hover:-translate-y-1 sm:p-4`}
+            className={`project-card-3d group flex h-full min-w-0 flex-col rounded-[15px] border-2 ${palette.border} ${palette.card} p-3.5 sm:p-4`}
           >
             <div className="flex min-h-[150px] items-center justify-center rounded-[9px] bg-[#211f20] px-5 py-8 sm:min-h-[170px]">
               <span
