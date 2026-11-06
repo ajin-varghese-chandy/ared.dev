@@ -156,7 +156,7 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
         {groups.map((group, groupIndex) => <div key={group.category} className="stack-shelf-row">
           <div className="stack-category-label"><span>0{groupIndex + 1}</span><strong>{group.category}</strong></div>
           <div className="shelf-items stack-shelf-items">
-            {group.items.map((item, index) => <div key={item} className="shelf-object tech-object" style={{ "--object-hue": `${(groupIndex * 67 + index * 31 + 145) % 360}` } as CSSProperties}>
+            {group.items.map((item, index) => <div key={item} className="shelf-object tech-object" style={{ "--object-hue": `${(groupIndex * 67 + index * 31 + 145) % 360}` } as CSSProperties & { "--object-hue": string }}>
               <span className="tech-object-index">{String(index + 1).padStart(2, "0")}</span><span className="tech-object-name">{item}</span><span className="tech-object-base" />
             </div>)}
           </div>
@@ -172,7 +172,7 @@ function ToolList({ items }: { items: string[] }) {
     <div className="shelf-scene">
       <div className="shelf-caption"><span>AI WORKBENCH</span><span>{items.length} TOOLS</span></div>
       <div className="shelf-items tools-shelf-items">
-        {items.map((item, index) => <div key={item} className="shelf-object ai-tool-object" style={{ "--object-hue": `${(index * 53 + 265) % 360}` } as CSSProperties}>
+        {items.map((item, index) => <div key={item} className="shelf-object ai-tool-object" style={{ "--object-hue": `${(index * 53 + 265) % 360}` } as CSSProperties & { "--object-hue": string }}>
           <span className="ai-tool-symbol">{item.slice(0, 1).toUpperCase()}</span><strong>{item}</strong><span className="ai-tool-status">IN TOOLKIT</span>
         </div>)}
       </div>
