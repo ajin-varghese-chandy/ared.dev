@@ -186,17 +186,30 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
   return (
     <div className="shelf-scene">
       <div className="shelf-caption"><span>TOOLS OF THE TRADE</span><span>{groups.reduce((n, group) => n + group.items.length, 0)} TECHNOLOGIES</span></div>
-      <div className="physical-rack compact-rack">
+      <div className="physical-rack compact-rack single-tech-rack">
         <RackFrame />
-        {groups.map((group, groupIndex) => <div className="rack-level" key={group.category}>
-          <div className="rack-category">{group.category}</div>
-          <div className="rack-contents tech-rack-contents">
-            {group.items.map((item, index) => <div className="tech-book" key={item} style={{ "--book-hue": (groupIndex * 67 + index * 31 + 145) % 360 } as CSSProperties & { "--book-hue": number }}>
-              <span className="book-cap" /><span className="tech-book-icon"><BrandIcon name={item} /></span><strong>{item}</strong><small>{String(index + 1).padStart(2, "0")}</small>
-            </div>)}
+        <div className="rack-level single-tech-level">
+          <div className="tech-rack-scroll">
+            <div className="tech-rack-contents">
+              {groups.map((group, groupIndex) => (
+                <div className="tech-category-group" key={group.category}>
+                  <div className="rack-category">{group.category}</div>
+                  <div className="tech-category-items">
+                    {group.items.map((item, index) => (
+                      <div className="tech-book" key={item} style={{ "--book-hue": (groupIndex * 67 + index * 31 + 145) % 360 } as CSSProperties & { "--book-hue": number }}>
+                        <span className="book-cap" />
+                        <span className="tech-book-icon"><BrandIcon name={item} /></span>
+                        <strong>{item}</strong>
+                        <small>{String(index + 1).padStart(2, "0")}</small>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="wood-shelf"><span /></div>
           </div>
-          <div className="wood-shelf"><span /></div>
-        </div>)}
+        </div>
       </div>
     </div>
   );
