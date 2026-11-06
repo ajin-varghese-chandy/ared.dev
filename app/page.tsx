@@ -108,127 +108,75 @@ function Projects({ items }: { items: Project[] }) {
     { card: "bg-[#ed1740]", ink: "text-[#250d14]", muted: "text-[#481522]", border: "border-[#c90e32]", tag: "border-[#c90e32]" },
     { card: "bg-[#ffb91f]", ink: "text-[#241b0b]", muted: "text-[#493512]", border: "border-[#db9910]", tag: "border-[#db9910]" },
   ];
-
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-      {items.map((project, index) => {
-        const palette = palettes[index % palettes.length];
-        const mark = project.title
-          .split(/\\s+/)
-          .filter(Boolean)
-          .slice(0, 2)
-          .map((word) => word[0])
-          .join("")
-          .toUpperCase();
-
-        return (
-          <article
-            key={project.title}
-            className={`group flex h-full min-w-0 flex-col rounded-[15px] border-2 ${palette.border} ${palette.card} p-3.5 shadow-[7px_8px_0_rgba(255,255,255,0.09)] transition-transform duration-200 hover:-translate-y-1 sm:p-4`}
-          >
-            <div className="flex min-h-[150px] items-center justify-center rounded-[9px] bg-[#211f20] px-5 py-8 sm:min-h-[170px]">
-              <span
-                aria-hidden="true"
-                className="select-none text-6xl font-black tracking-[-0.08em] text-[#f7f2e8] drop-shadow-[4px_4px_0_rgba(0,0,0,0.45)] sm:text-7xl"
-              >
-                {mark}
-              </span>
-            </div>
-
-            <div className="flex flex-1 flex-col px-0.5 pb-1 pt-4">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className={`text-xl font-black uppercase leading-tight tracking-tight ${palette.ink}`}>
-                  {project.title}
-                </h3>
-                <span className={`text-xs font-bold ${palette.muted}`}>{project.year}</span>
-              </div>
-
-              <p className={`mt-1.5 text-xs font-bold uppercase tracking-wider ${palette.muted}`}>
-                {project.kind}
-              </p>
-
-              <p className={`mt-3 text-sm leading-relaxed ${palette.ink}`}>
-                {project.summary}
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`rounded-sm border px-2 py-0.5 text-[10px] font-semibold ${palette.tag} ${palette.ink}`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {(project.href || project.github) && (
-                <div className="mt-auto flex flex-wrap items-center gap-3 pt-5">
-                  {project.href && (
-                    <a
-                      href={project.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="border border-[#211f20] bg-[#211f20] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-black"
-                    >
-                      {labels.visit} ↗
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`text-xs font-bold underline underline-offset-4 ${palette.ink}`}
-                    >
-                      {labels.github} ↗
-                    </a>
-                  )}
+    <div className="shelf-scene project-shelf">
+      <div className="shelf-caption"><span>SELECTED BUILDS</span><span>{String(items.length).padStart(2, "0")} OBJECTS</span></div>
+      <div className="shelf-items project-shelf-items">
+        {items.map((project, index) => {
+          const palette = palettes[index % palettes.length];
+          const mark = project.title.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join("").toUpperCase();
+          return (
+            <article key={project.title} className="shelf-object project-object">
+              <div className="project-object-face">
+                <div className="project-object-topline"><span>PROJECT / {String(index + 1).padStart(2, "0")}</span><span>{project.year}</span></div>
+                <div className={\`project-art \${palette.card}\`}>
+                  <span className="project-mark">{mark}</span><span className="project-art-index">{String(index + 1).padStart(2, "0")}</span>
                 </div>
-              )}
-            </div>
-          </article>
-        );
-      })}
+                <div className="project-object-copy">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className={\`text-lg font-black uppercase leading-tight tracking-tight \${palette.ink}\`}>{project.title}</h3>
+                    <span className={\`text-[11px] font-bold \${palette.muted}\`}>{project.year}</span>
+                  </div>
+                  <p className={\`mt-1 text-[10px] font-bold uppercase tracking-wider \${palette.muted}\`}>{project.kind}</p>
+                  <p className={\`mt-3 text-xs leading-relaxed \${palette.ink}\`}>{project.summary}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {project.tags.map((tag) => <span key={tag} className={\`rounded-sm border px-2 py-0.5 text-[9px] font-semibold \${palette.tag} \${palette.ink}\`}>{tag}</span>)}
+                  </div>
+                  {(project.href || project.github) && <div className="mt-auto flex flex-wrap items-center gap-3 pt-4">
+                    {project.href && <a href={project.href} target="_blank" rel="noreferrer" className="border border-[#211f20] bg-[#211f20] px-3 py-2 text-[10px] font-bold text-white transition-colors hover:bg-black">{labels.visit} ↗</a>}
+                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className={\`text-[10px] font-bold underline underline-offset-4 \${palette.ink}\`}>{labels.github} ↗</a>}
+                  </div>}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <div className="shelf-board" aria-hidden="true"><span /></div>
     </div>
   );
 }
 
 function StackGroups({ groups }: { groups: StackGroup[] }) {
   return (
-    <div className="grid gap-8 sm:grid-cols-2">
-      {groups.map((group) => (
-        <div key={group.category}>
-          <h3 className="text-xs uppercase tracking-wider text-text-muted">
-            {group.category}
-          </h3>
-          <ul className="mt-3 space-y-2.5">
-            {group.items.map((item) => (
-              <li key={item} className="flex items-center gap-3">
-                <span className="h-px w-3 bg-border-strong" />
-                <span className="text-[15px] text-text">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="shelf-scene">
+      <div className="shelf-caption"><span>TOOLS OF THE TRADE</span><span>{groups.reduce((count, group) => count + group.items.length, 0)} COMPONENTS</span></div>
+      <div className="stack-shelves">
+        {groups.map((group, groupIndex) => <div key={group.category} className="stack-shelf-row">
+          <div className="stack-category-label"><span>0{groupIndex + 1}</span><strong>{group.category}</strong></div>
+          <div className="shelf-items stack-shelf-items">
+            {group.items.map((item, index) => <div key={item} className="shelf-object tech-object" style={{ "--object-hue": \`\${(groupIndex * 67 + index * 31 + 145) % 360}\` } as React.CSSProperties}>
+              <span className="tech-object-index">{String(index + 1).padStart(2, "0")}</span><span className="tech-object-name">{item}</span><span className="tech-object-base" />
+            </div>)}
+          </div>
+          <div className="shelf-board" aria-hidden="true"><span /></div>
+        </div>)}
+      </div>
     </div>
   );
 }
 
 function ToolList({ items }: { items: string[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-      {items.map((item) => (
-        <li
-          key={item}
-          className="flex items-center gap-2.5 border border-border bg-surface px-3 py-3 sm:gap-3 sm:px-4"
-        >
-          <span className="h-1.5 w-1.5 shrink-0 bg-border-strong" />
-          <span className="min-w-0 text-sm text-text sm:text-[15px]">{item}</span>
-        </li>
-      ))}
-    </ul>
+    <div className="shelf-scene">
+      <div className="shelf-caption"><span>AI WORKBENCH</span><span>{items.length} TOOLS</span></div>
+      <div className="shelf-items tools-shelf-items">
+        {items.map((item, index) => <div key={item} className="shelf-object ai-tool-object" style={{ "--object-hue": \`\${(index * 53 + 265) % 360}\` } as React.CSSProperties}>
+          <span className="ai-tool-symbol">{item.slice(0, 1).toUpperCase()}</span><strong>{item}</strong><span className="ai-tool-status">IN TOOLKIT</span>
+        </div>)}
+      </div>
+      <div className="shelf-board" aria-hidden="true"><span /></div>
+    </div>
   );
 }
 
