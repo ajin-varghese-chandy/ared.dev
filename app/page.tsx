@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import {
   site,
   labels,
@@ -119,22 +120,22 @@ function Projects({ items }: { items: Project[] }) {
             <article key={project.title} className="shelf-object project-object">
               <div className="project-object-face">
                 <div className="project-object-topline"><span>PROJECT / {String(index + 1).padStart(2, "0")}</span><span>{project.year}</span></div>
-                <div className={\`project-art \${palette.card}\`}>
+                <div className={`project-art ${palette.card}`}>
                   <span className="project-mark">{mark}</span><span className="project-art-index">{String(index + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="project-object-copy">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className={\`text-lg font-black uppercase leading-tight tracking-tight \${palette.ink}\`}>{project.title}</h3>
-                    <span className={\`text-[11px] font-bold \${palette.muted}\`}>{project.year}</span>
+                    <h3 className={`text-lg font-black uppercase leading-tight tracking-tight ${palette.ink}`}>{project.title}</h3>
+                    <span className={`text-[11px] font-bold ${palette.muted}`}>{project.year}</span>
                   </div>
-                  <p className={\`mt-1 text-[10px] font-bold uppercase tracking-wider \${palette.muted}\`}>{project.kind}</p>
-                  <p className={\`mt-3 text-xs leading-relaxed \${palette.ink}\`}>{project.summary}</p>
+                  <p className={`mt-1 text-[10px] font-bold uppercase tracking-wider ${palette.muted}`}>{project.kind}</p>
+                  <p className={`mt-3 text-xs leading-relaxed ${palette.ink}`}>{project.summary}</p>
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => <span key={tag} className={\`rounded-sm border px-2 py-0.5 text-[9px] font-semibold \${palette.tag} \${palette.ink}\`}>{tag}</span>)}
+                    {project.tags.map((tag) => <span key={tag} className={`rounded-sm border px-2 py-0.5 text-[9px] font-semibold ${palette.tag} ${palette.ink}`}>{tag}</span>)}
                   </div>
                   {(project.href || project.github) && <div className="mt-auto flex flex-wrap items-center gap-3 pt-4">
                     {project.href && <a href={project.href} target="_blank" rel="noreferrer" className="border border-[#211f20] bg-[#211f20] px-3 py-2 text-[10px] font-bold text-white transition-colors hover:bg-black">{labels.visit} ↗</a>}
-                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className={\`text-[10px] font-bold underline underline-offset-4 \${palette.ink}\`}>{labels.github} ↗</a>}
+                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className={`text-[10px] font-bold underline underline-offset-4 ${palette.ink}`}>{labels.github} ↗</a>}
                   </div>}
                 </div>
               </div>
@@ -155,7 +156,7 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
         {groups.map((group, groupIndex) => <div key={group.category} className="stack-shelf-row">
           <div className="stack-category-label"><span>0{groupIndex + 1}</span><strong>{group.category}</strong></div>
           <div className="shelf-items stack-shelf-items">
-            {group.items.map((item, index) => <div key={item} className="shelf-object tech-object" style={{ "--object-hue": \`\${(groupIndex * 67 + index * 31 + 145) % 360}\` } as React.CSSProperties}>
+            {group.items.map((item, index) => <div key={item} className="shelf-object tech-object" style={{ "--object-hue": `${(groupIndex * 67 + index * 31 + 145) % 360}` } as CSSProperties}>
               <span className="tech-object-index">{String(index + 1).padStart(2, "0")}</span><span className="tech-object-name">{item}</span><span className="tech-object-base" />
             </div>)}
           </div>
@@ -171,7 +172,7 @@ function ToolList({ items }: { items: string[] }) {
     <div className="shelf-scene">
       <div className="shelf-caption"><span>AI WORKBENCH</span><span>{items.length} TOOLS</span></div>
       <div className="shelf-items tools-shelf-items">
-        {items.map((item, index) => <div key={item} className="shelf-object ai-tool-object" style={{ "--object-hue": \`\${(index * 53 + 265) % 360}\` } as React.CSSProperties}>
+        {items.map((item, index) => <div key={item} className="shelf-object ai-tool-object" style={{ "--object-hue": `${(index * 53 + 265) % 360}` } as CSSProperties}>
           <span className="ai-tool-symbol">{item.slice(0, 1).toUpperCase()}</span><strong>{item}</strong><span className="ai-tool-status">IN TOOLKIT</span>
         </div>)}
       </div>
