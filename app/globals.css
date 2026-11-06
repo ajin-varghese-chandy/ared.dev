@@ -296,3 +296,115 @@
 .ai-product-icon { display:grid; width:32px; height:32px; place-items:center; }
 .ai-product-icon .brand-icon { width:29px; height:29px; }
 .ai-product-icon .brand-icon-fallback { width:29px; height:29px; }
+
+
+/* Left-aligned rack turned inward toward the page content, with visible side depth. */
+.shelf-scene { width:100%; overflow:visible; }
+.physical-rack {
+  width:min(100%, 900px);
+  margin-left:0;
+  margin-right:auto;
+  padding-left:30px;
+  padding-right:30px;
+  perspective:1400px;
+  transform:perspective(1400px) rotateY(7deg) rotateX(1deg);
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  filter:drop-shadow(18px 18px 18px rgb(0 0 0 / 22%));
+}
+.physical-rack::before {
+  position:absolute;
+  z-index:0;
+  top:8px;
+  right:20px;
+  bottom:18px;
+  left:20px;
+  border:1px solid #555;
+  background:linear-gradient(90deg,#171717,#292929 45%,#151515);
+  box-shadow:inset 0 0 24px #0009;
+  content:"";
+  transform:translateZ(-20px);
+}
+.rack-upright { transform:translateZ(12px); }
+.rack-upright-right { right:12px; }
+.rack-upright-left { left:12px; }
+.rack-level { transform-style:preserve-3d; }
+.wood-shelf {
+  height:19px;
+  margin-left:-22px;
+  margin-right:-22px;
+  border-right:8px solid #493727;
+  border-bottom:5px solid #38291d;
+  transform:perspective(500px) rotateX(10deg) translateZ(8px);
+  box-shadow:0 7px 0 #211b15,0 14px 18px #0007;
+}
+.wood-shelf::after {
+  position:absolute;
+  top:1px;
+  right:-9px;
+  bottom:-5px;
+  width:10px;
+  border:1px solid #493727;
+  background:linear-gradient(90deg,#72583e,#38291d);
+  content:"";
+  transform:skewY(28deg);
+  transform-origin:left top;
+}
+.project-product { transform:translateZ(16px) perspective(700px) rotateY(-2deg); }
+.tech-book,.ai-product { transform:translateZ(13px); }
+.project-product:hover { transform:translateY(-8px) translateZ(24px) perspective(700px) rotateY(0deg); }
+.tech-book:hover,.ai-product:hover { transform:translateY(-7px) translateZ(22px); }
+
+/* Make project actions readable and easy to hit, not tiny footer text. */
+.product-links {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin-top:auto;
+  padding-top:12px;
+}
+.product-links a {
+  display:inline-flex;
+  min-height:30px;
+  align-items:center;
+  justify-content:center;
+  padding:6px 10px;
+  border:1px solid currentColor;
+  border-radius:3px;
+  background:rgb(255 255 255 / 24%);
+  color:var(--product-ink);
+  font-size:10px;
+  font-weight:900;
+  line-height:1;
+  text-decoration:none;
+  transition:background .18s ease,transform .18s ease;
+}
+.product-links a:hover,.product-links a:focus-visible {
+  background:rgb(255 255 255 / 55%);
+  outline:2px solid currentColor;
+  outline-offset:2px;
+  transform:translateY(-2px);
+}
+.product-front { min-height:100%; }
+.project-rack .rack-level { min-height:385px; }
+.project-rack .rack-contents { min-height:340px; }
+@media(max-width:640px) {
+  .physical-rack {
+    width:100%;
+    padding-left:18px;
+    padding-right:18px;
+    transform:perspective(1100px) rotateY(3deg) rotateX(.5deg);
+  }
+  .physical-rack::before { right:12px; left:12px; }
+  .rack-upright-left { left:5px; }
+  .rack-upright-right { right:5px; }
+  .project-rack .rack-level { min-height:310px; }
+  .project-rack .rack-contents { min-height:270px; }
+  .wood-shelf { margin-left:-12px; margin-right:-12px; }
+  .product-links { gap:5px; padding-top:8px; }
+  .product-links a { min-height:28px; padding:5px 7px; font-size:9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .product-links a { transition:none; }
+}
