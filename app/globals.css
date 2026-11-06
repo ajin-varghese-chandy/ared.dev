@@ -163,58 +163,88 @@
   transform: translate(-50%, 0);
 }
 
-/* 3-D shelf effect for project cards */
-.project-card-3d {
+/* Unified 3-D shelf treatment for every content card. */
+@property --shelf-depth {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 10px;
+}
+
+.shelf-3d {
+  --shelf-depth: 10px;
+  /* Overridden per card to match its surface colour. */
+  --shelf-edge: #070707;
+  --shelf-radius: 0px;
   position: relative;
-  transform-style: preserve-3d;
-  transition: transform 200ms ease, box-shadow 200ms ease;
-}
-
-.project-card-3d::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  /* right face */
+  z-index: 0;
+  isolation: isolate;
+  transform: translateZ(0);
+  transition:
+    --shelf-depth 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 220ms ease;
   box-shadow:
-    6px 6px 0 -1px rgba(0, 0, 0, 0.55),
-    7px 7px 0 0px rgba(0, 0, 0, 0.35),
-    10px 10px 0 -1px rgba(0, 0, 0, 0.18);
-  pointer-events: none;
-  transition: box-shadow 200ms ease;
+    inset 0 1px 0 rgb(255 255 255 / 12%),
+    inset 0 -1px 0 rgb(0 0 0 / 35%),
+    0 18px 24px -20px rgb(0 0 0 / 95%);
 }
 
-.project-card-3d::after {
-  content: "";
+.shelf-3d::before,
+.shelf-3d::after {
   position: absolute;
-  /* bottom shelf face */
-  left: 4px;
-  right: -6px;
-  bottom: -7px;
-  height: 7px;
-  border-radius: 0 0 inherit inherit;
-  background: rgba(0, 0, 0, 0.35);
-  filter: blur(1px);
+  z-index: -1;
+  content: "";
   pointer-events: none;
-  transition: all 200ms ease;
+  background-color: var(--shelf-edge);
 }
 
-.project-card-3d:hover {
-  transform: translateY(-4px) translateX(-2px);
+/* Right-hand extruded face. */
+.shelf-3d::before {
+  top: var(--shelf-radius);
+  right: calc(var(--shelf-depth) * -1);
+  width: var(--shelf-depth);
+  height: calc(100% - var(--shelf-radius));
+  border-radius: 0 var(--shelf-radius) var(--shelf-radius) 0;
+  background-image:
+    linear-gradient(90deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 0%) 55%),
+    linear-gradient(180deg, rgb(255 255 255 / 8%), rgb(0 0 0 / 35%));
+  transform: skewY(45deg);
+  transform-origin: top left;
 }
 
-.project-card-3d:hover::before {
+/* Bottom shelf face, fixed so it lines up with the right-hand face. */
+.shelf-3d::after {
+  bottom: calc(var(--shelf-depth) * -1);
+  left: var(--shelf-radius);
+  width: calc(100% - var(--shelf-radius));
+  height: var(--shelf-depth);
+  border-radius: 0 0 var(--shelf-radius) var(--shelf-radius);
+  background-image:
+    linear-gradient(180deg, rgb(255 255 255 / 18%), rgb(255 255 255 / 0%) 45%),
+    linear-gradient(90deg, rgb(0 0 0 / 10%), rgb(0 0 0 / 48%));
+  transform: skewX(45deg);
+  transform-origin: top left;
+}
+
+.shelf-3d:hover,
+.shelf-3d:focus-within {
+  --shelf-depth: 15px;
+  z-index: 2;
+  transform: translate3d(-2px, -5px, 0);
   box-shadow:
-    8px 8px 0 -1px rgba(0, 0, 0, 0.55),
-    10px 10px 0 0px rgba(0, 0, 0, 0.35),
-    14px 14px 0 -1px rgba(0, 0, 0, 0.18);
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    inset 0 -1px 0 rgb(0 0 0 / 40%),
+    14px 22px 34px -18px rgb(0 0 0 / 100%);
 }
 
-.project-card-3d:hover::after {
-  left: 6px;
-  right: -8px;
-  bottom: -10px;
-  height: 10px;
+/* Compact variant for small list items such as tools. */
+.shelf-3d-sm {
+  --shelf-depth: 6px;
+}
+
+.shelf-3d-sm:hover,
+.shelf-3d-sm:focus-within {
+  --shelf-depth: 9px;
 }
 
 @media (prefers-reduced-motion: reduce) {

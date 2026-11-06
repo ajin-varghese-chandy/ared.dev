@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import {
   site,
   labels,
@@ -71,7 +72,7 @@ function ProfileHighlights({ highlights }: { highlights: Highlight[] }) {
 
 function FeaturedCardView({ card }: { card: FeaturedCard }) {
   return (
-    <div className="border border-border bg-surface p-6 sm:p-7">
+    <div className="shelf-3d border border-border bg-surface p-6 sm:p-7">
       <h3 className="text-lg font-bold text-text">{card.title}</h3>
       <p className="mt-4 text-[15px] leading-relaxed text-text-soft">
         {card.description}
@@ -100,13 +101,13 @@ function FeaturedCardView({ card }: { card: FeaturedCard }) {
 
 function Projects({ items }: { items: Project[] }) {
   const palettes = [
-    { card: "bg-[#08a85e]", ink: "text-[#101512]", muted: "text-[#163b2b]", border: "border-[#087d49]", tag: "border-[#087d49]/60" },
-    { card: "bg-[#f7f2d8]", ink: "text-[#211f1f]", muted: "text-[#393431]", border: "border-[#d8d0b4]", tag: "border-[#c8bea0]" },
-    { card: "bg-[#f184a2]", ink: "text-[#24151b]", muted: "text-[#4a2633]", border: "border-[#d96787]", tag: "border-[#d96787]" },
-    { card: "bg-[#8063a9]", ink: "text-[#17121e]", muted: "text-[#2b2038]", border: "border-[#684b91]", tag: "border-[#684b91]" },
-    { card: "bg-[#13b4d8]", ink: "text-[#102027]", muted: "text-[#173640]", border: "border-[#078eae]", tag: "border-[#078eae]" },
-    { card: "bg-[#ed1740]", ink: "text-[#250d14]", muted: "text-[#481522]", border: "border-[#c90e32]", tag: "border-[#c90e32]" },
-    { card: "bg-[#ffb91f]", ink: "text-[#241b0b]", muted: "text-[#493512]", border: "border-[#db9910]", tag: "border-[#db9910]" },
+    { card: "bg-[#08a85e]", ink: "text-[#101512]", muted: "text-[#163b2b]", border: "border-[#087d49]", tag: "border-[#087d49]/60", edge: "#056b3c" },
+    { card: "bg-[#f7f2d8]", ink: "text-[#211f1f]", muted: "text-[#393431]", border: "border-[#d8d0b4]", tag: "border-[#c8bea0]", edge: "#b8ad8c" },
+    { card: "bg-[#f184a2]", ink: "text-[#24151b]", muted: "text-[#4a2633]", border: "border-[#d96787]", tag: "border-[#d96787]", edge: "#b74d6b" },
+    { card: "bg-[#8063a9]", ink: "text-[#17121e]", muted: "text-[#2b2038]", border: "border-[#684b91]", tag: "border-[#684b91]", edge: "#53406e" },
+    { card: "bg-[#13b4d8]", ink: "text-[#102027]", muted: "text-[#173640]", border: "border-[#078eae]", tag: "border-[#078eae]", edge: "#0a7b95" },
+    { card: "bg-[#ed1740]", ink: "text-[#250d14]", muted: "text-[#481522]", border: "border-[#c90e32]", tag: "border-[#c90e32]", edge: "#a50d2c" },
+    { card: "bg-[#ffb91f]", ink: "text-[#241b0b]", muted: "text-[#493512]", border: "border-[#db9910]", tag: "border-[#db9910]", edge: "#b9810b" },
   ];
 
   return (
@@ -124,7 +125,8 @@ function Projects({ items }: { items: Project[] }) {
         return (
           <article
             key={project.title}
-            className={`project-card-3d group flex h-full min-w-0 flex-col rounded-[15px] border-2 ${palette.border} ${palette.card} p-3.5 sm:p-4`}
+            className={`shelf-3d group flex h-full min-w-0 flex-col rounded-[15px] border-2 ${palette.border} ${palette.card} p-3.5 sm:p-4`}
+            style={{ "--shelf-edge": palette.edge, "--shelf-radius": "15px" } as CSSProperties}
           >
             <div className="flex min-h-[150px] items-center justify-center rounded-[9px] bg-[#211f20] px-5 py-8 sm:min-h-[170px]">
               <span
@@ -198,7 +200,7 @@ function StackGroups({ groups }: { groups: StackGroup[] }) {
   return (
     <div className="grid gap-8 sm:grid-cols-2">
       {groups.map((group) => (
-        <div key={group.category}>
+        <div key={group.category} className="shelf-3d border border-border bg-surface p-5 sm:p-6">
           <h3 className="text-xs uppercase tracking-wider text-text-muted">
             {group.category}
           </h3>
@@ -222,7 +224,7 @@ function ToolList({ items }: { items: string[] }) {
       {items.map((item) => (
         <li
           key={item}
-          className="flex items-center gap-2.5 border border-border bg-surface px-3 py-3 sm:gap-3 sm:px-4"
+          className="shelf-3d shelf-3d-sm flex items-center gap-2.5 border border-border bg-surface px-3 py-3 sm:gap-3 sm:px-4"
         >
           <span className="h-1.5 w-1.5 shrink-0 bg-border-strong" />
           <span className="min-w-0 text-sm text-text sm:text-[15px]">{item}</span>
@@ -279,7 +281,7 @@ function SectionContent({ section }: { section: Section }) {
       return <ToolList items={section.items} />;
     case "contact":
       return (
-        <div>
+        <div className="shelf-3d border border-border bg-surface p-5 sm:p-6">
           <a
             href={`mailto:${section.email}`}
             className="break-words text-[15px] text-text-soft underline underline-offset-4 decoration-border-strong hover:decoration-text-soft transition-colors"
