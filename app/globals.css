@@ -410,31 +410,25 @@
 }
 
 
-/* Rear pair of rack legs, inset from the two front corner uprights. */
-.physical-rack::after {
+/* Four independent rack posts with explicit front/back depth layers. */
+.rack-leg-back {
   position:absolute;
-  z-index:2;
+  z-index:1;
   top:14px;
   bottom:22px;
-  left:38px;
-  right:38px;
+  width:10px;
+  border:1px solid #555;
+  border-radius:2px;
+  background:linear-gradient(90deg,#080808 0%,#777 24%,#292929 58%,#080808 100%);
+  box-shadow:2px 1px 3px #0009;
   pointer-events:none;
-  background:
-    linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) left top / 10px 100% no-repeat,
-    linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) right top / 10px 100% no-repeat;
-  content:"";
-  filter:drop-shadow(2px 1px 2px #0009);
 }
-.rack-upright-left,.rack-upright-right { z-index:4; }
-.rack-upright-left { left:8px; }
-.rack-upright-right { right:8px; }
-.rack-level { position:relative; }
+.rack-leg-back-left { left:38px; }
+.rack-leg-back-right { right:38px; }
+.rack-upright { z-index:4; }
+.rack-level { z-index:2; }
 @media(max-width:640px) {
-  .physical-rack::after {
-    left:27px;
-    right:27px;
-    background:
-      linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) left top / 8px 100% no-repeat,
-      linear-gradient(90deg,#080808 0%,#8a8a8a 24%,#333 58%,#080808 100%) right top / 8px 100% no-repeat;
-  }
+  .rack-leg-back { width:8px; }
+  .rack-leg-back-left { left:27px; }
+  .rack-leg-back-right { right:27px; }
 }
