@@ -288,3 +288,11 @@
  .ai-product-label { height:74px; }
 }
 @media(prefers-reduced-motion:reduce) { .project-product,.tech-book,.ai-product { transition:none; } }
+
+/* Official brand marks from Simple Icons, used as product labels on the rack. */
+.brand-icon { display:block; width:100%; height:100%; object-fit:contain; }
+.brand-icon-fallback { display:grid; width:27px; height:27px; place-items:center; border:1px solid #ffffff55; border-radius:5px; color:#fff; font-size:9px; font-weight:900; }
+.tech-book-icon { display:grid; width:25px; height:25px; margin:0 auto 5px; place-items:center; }
+.ai-product-icon { display:grid; width:32px; height:32px; place-items:center; }
+.ai-product-icon .brand-icon { width:29px; height:29px; }
+.ai-product-icon .brand-icon-fallback { width:29px; height:29px; }
