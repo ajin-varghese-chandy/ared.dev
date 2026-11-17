@@ -17,14 +17,15 @@ import { Sidebar } from "./components/tree-nav";
 
 function Portrait({ avatar }: { avatar: ProfileSection["avatar"] }) {
   return (
-    <div className="hero-portrait relative h-[340px] w-full sm:h-[420px] md:h-full md:min-h-[480px]">
+    <div className="hero-portrait">
       <div className="hero-glow" aria-hidden="true" />
       <Image
         src={avatar.src}
         alt={avatar.alt}
         fill
-        className="hero-portrait-img object-contain object-bottom"
-        sizes="(min-width: 1024px) 460px, (min-width: 768px) 40vw, 100vw"
+        quality={95}
+        className="hero-portrait-img"
+        sizes="(min-width: 1024px) 940px, 100vw"
         priority
       />
     </div>
@@ -114,7 +115,7 @@ function Projects({ items }: { items: Project[] }) {
       {items.map((project, index) => {
         const palette = palettes[index % palettes.length];
         const mark = project.title
-          .split(/\\s+/)
+          .split(/\s+/)
           .filter(Boolean)
           .slice(0, 2)
           .map((word) => word[0])
@@ -237,24 +238,36 @@ function ProfileView({ section }: { section: ProfileSection }) {
   return (
     <>
       {/* Hero */}
-      <div className="hero-panel relative overflow-hidden border border-border-strong">
+      <div className="hero-panel relative isolate overflow-hidden border border-border-strong">
         <div className="hero-grid" aria-hidden="true" />
-        <div className="relative grid grid-cols-1 items-stretch md:grid-cols-[1.15fr_0.85fr]">
-          <div className="z-10 flex flex-col justify-center p-6 sm:p-10 md:py-14">
-            <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
-              <span className="text-text-soft">~/</span>profile
-              <span className="hero-cursor" aria-hidden="true" />
-            </p>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-6xl">
-              {section.headline}
-            </h1>
-            <p className="mt-4 text-base text-text-soft sm:text-lg">{section.role}</p>
+        <div className="relative z-10 flex flex-col justify-center px-6 pb-[18rem] pt-10 sm:px-10 sm:pb-[21rem] md:min-h-[560px] md:max-w-[52%] md:py-16 md:pb-16">
+          <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
+            <span className="text-text-soft">~/</span>profile
+            <span className="hero-cursor" aria-hidden="true" />
+          </p>
+          <h1 className="mt-6 font-bold tracking-tight text-text">
+            <span className="block text-xs font-normal uppercase tracking-[0.16em] text-text-muted sm:text-sm">
+              Hi, I&apos;m
+            </span>
+            <span className="mt-2 block text-[2.6rem] leading-[0.98] sm:text-[3.4rem] md:text-[clamp(2.6rem,5vw,4.25rem)]">
+              <span className="hero-name">
+                {section.headline.split(" ").map((word, i, words) => (
+                  <span key={`${word}-${i}`} className="block">
+                    {word}
+                    {i === words.length - 1 && (
+                      <span className="hero-name-caret" aria-hidden="true" />
+                    )}
+                  </span>
+                ))}
+              </span>
+            </span>
+          </h1>
+          <p className="mt-4 text-base text-text-soft sm:text-lg">{section.role}</p>
 
-            <ProfileHighlights highlights={section.highlights} />
-          </div>
-
-          <Portrait avatar={section.avatar} />
+          <ProfileHighlights highlights={section.highlights} />
         </div>
+
+        <Portrait avatar={section.avatar} />
       </div>
 
       {/* Featured card */}

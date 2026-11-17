@@ -36,7 +36,7 @@ function TreeItem({
           const el = document.querySelector(item.href);
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }}
-        className={`relative block whitespace-nowrap py-1 text-sm transition-colors duration-200 md:py-[10px] md:pl-[26px] md:text-[15px] ${
+        className={`relative block whitespace-nowrap py-1 text-[13px] transition-colors duration-200 md:py-[10px] md:pl-[26px] md:text-[15px] ${
           isActive
             ? "text-text"
             : "text-text-muted hover:text-text-soft"
@@ -156,7 +156,7 @@ export function Sidebar({
 
         {/* Tree Navigation */}
         <nav className="mt-3 md:mt-0 md:flex-1">
-          <ul className="flex gap-5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible md:pb-0">
+          <ul className="flex gap-4 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible md:pb-0">
             {navItems.map((item, i) => (
               <TreeItem
                 key={item.href}

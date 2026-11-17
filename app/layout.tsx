@@ -1,7 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono } from "next/font/google";
 import { site, labels } from "@/lib/content";
 import { LoadingScreen } from "./components/loading-screen";
 import "./globals.css";
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
 
 const description = `${site.name} — ${site.role}. ${site.description}`;
 
@@ -44,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={jetbrains.variable}>
       <body className="min-h-screen antialiased">
         <script
           type="application/ld+json"
