@@ -321,8 +321,11 @@
 
 @media (width >= 48rem) {
   .hero-portrait {
-    width: 82%;
-    height: 86%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
   }
 
   .hero-glow {
@@ -338,8 +341,7 @@
 
 @media (width >= 80rem) {
   .hero-portrait {
-    width: 94%;
-    height: 94%;
+    width: 52%;
   }
 
   .hero-glow {
