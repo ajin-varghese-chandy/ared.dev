@@ -22,7 +22,7 @@ function Portrait({ avatar }: { avatar: ProfileSection["avatar"] }) {
           src={avatar.src}
           alt={avatar.alt}
           fill
-          className="object-cover grayscale"
+          className="object-cover"
           sizes="(min-width: 640px) 160px, 140px"
           priority
         />
