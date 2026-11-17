@@ -17,17 +17,16 @@ import { Sidebar } from "./components/tree-nav";
 
 function Portrait({ avatar }: { avatar: ProfileSection["avatar"] }) {
   return (
-    <div className="inline-block border border-border-strong p-3">
-      <div className="relative h-[140px] w-[140px] overflow-hidden sm:h-[160px] sm:w-[160px]">
-        <Image
-          src={avatar.src}
-          alt={avatar.alt}
-          fill
-          className="object-cover"
-          sizes="(min-width: 640px) 160px, 140px"
-          priority
-        />
-      </div>
+    <div className="hero-portrait relative h-[340px] w-full sm:h-[420px] md:h-full md:min-h-[480px]">
+      <div className="hero-glow" aria-hidden="true" />
+      <Image
+        src={avatar.src}
+        alt={avatar.alt}
+        fill
+        className="hero-portrait-img object-contain object-bottom"
+        sizes="(min-width: 1024px) 460px, (min-width: 768px) 40vw, 100vw"
+        priority
+      />
     </div>
   );
 }
@@ -237,26 +236,33 @@ function ToolList({ items }: { items: string[] }) {
 function ProfileView({ section }: { section: ProfileSection }) {
   return (
     <>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
-        {/* Left Column */}
-        <div>
-          <Portrait avatar={section.avatar} />
+      {/* Hero */}
+      <div className="hero-panel relative overflow-hidden border border-border-strong">
+        <div className="hero-grid" aria-hidden="true" />
+        <div className="relative grid grid-cols-1 items-stretch md:grid-cols-[1.15fr_0.85fr]">
+          <div className="z-10 flex flex-col justify-center p-6 sm:p-10 md:py-14">
+            <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
+              <span className="text-text-soft">~/</span>profile
+              <span className="hero-cursor" aria-hidden="true" />
+            </p>
+            <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-6xl">
+              {section.headline}
+            </h1>
+            <p className="mt-4 text-base text-text-soft sm:text-lg">{section.role}</p>
 
-          <h1 className="mt-8 text-2xl font-bold tracking-tight text-text sm:text-[28px]">
-            {section.headline}
-          </h1>
-          <p className="mt-2 text-[15px] text-text-muted">{section.role}</p>
-
-          <ProfileHighlights highlights={section.highlights} />
-        </div>
-
-        {/* Right Column - Featured Card */}
-        {section.featuredCard && (
-          <div className="lg:pt-0">
-            <FeaturedCardView card={section.featuredCard} />
+            <ProfileHighlights highlights={section.highlights} />
           </div>
-        )}
+
+          <Portrait avatar={section.avatar} />
+        </div>
       </div>
+
+      {/* Featured card */}
+      {section.featuredCard && (
+        <div className="mt-6 max-w-xl">
+          <FeaturedCardView card={section.featuredCard} />
+        </div>
+      )}
 
       {/* Divider */}
       <div className="my-10 h-px bg-border sm:my-12" />

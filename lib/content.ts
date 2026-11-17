@@ -128,7 +128,7 @@ export const sections: Section[] = [
     title: "Profile",
     headline: `Hi, I'm ${site.name}!`,
     role: site.role,
-    avatar: { src: "/ajin-hero.webp", alt: site.name },
+    avatar: { src: "/hero-cutout.webp", alt: site.name },
     highlights: [
       { text: "2,000+ ACTIVE USERS" },
       { text: "4.2/5", link: { text: "★★★★☆", href: "https://chromewebstore.google.com/detail/real-time-internet-speed/baffnjfijbgpjchgdmbnpkloeccnhenl" } },
