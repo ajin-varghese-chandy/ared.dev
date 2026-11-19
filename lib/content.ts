@@ -94,8 +94,7 @@ export const site = {
   description:
     `BCA graduate and front end engineer who builds responsive, user-facing web interfaces with React, Next.js and TypeScript.
 Delivered 3 applications, including a Chrome extension with 3,000+ users and 2 web platforms with role-based dashboards,
-authentication and payment integration. Active open source contributor with the code-charity organization. Seeking a front
-end engineer role in Kochi.
+authentication and payment integration. Active open source contributor with the code-charity organization.
 `,
   socials: [
     { label: "github", href: "https://github.com/ajin-varghese-chandy", icon: "github" as const },
@@ -145,8 +144,7 @@ export const sections: Section[] = [
     },
     bio: `BCA graduate and front end engineer who builds responsive, user-facing web interfaces with React, Next.js and TypeScript.
 Delivered 3 applications, including a Chrome extension with 3,000+ users and 2 web platforms with role-based dashboards,
-authentication and payment integration. Active open source contributor with the code-charity organization. Seeking a front
-end engineer role in Kochi.
+authentication and payment integration. Active open source contributor with the code-charity organization.
 `,
   },
   {
